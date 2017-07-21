@@ -15,6 +15,8 @@ export var loginReducer = (state = { email: '', password: '' }, action) => {
         email: '',
         password: ''
       };
+    case 'LOGOUT':
+      return {email: '', password: ''}
     default:
       return state;
   };
@@ -26,6 +28,11 @@ export var authReducer = (state = {}, action) => {
       return {
         email: action.email,
         uid: action.uid
+      };
+    case 'UPDATE_ZIP':
+      return {
+        ...state,
+        zip: action.zip
       };
     default:
       return state;

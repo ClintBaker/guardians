@@ -6,13 +6,13 @@ import * as actions from 'actions';
 import Landing from 'Landing';
 import Main from 'app/components/Main';
 
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    hashHistory.push('/main');
-  } else {
-    hashHistory.push('/');
-  }
-});
+// firebase.auth().onAuthStateChanged((user) => {
+//   if (user) {
+//     hashHistory.push('/main');
+//   } else {
+//     hashHistory.push('/');
+//   }
+// });
 
 export default (
   <Router history={hashHistory}>

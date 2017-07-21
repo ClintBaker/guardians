@@ -10,7 +10,9 @@ class Landing extends React.Component {
           <h1>Guardians</h1>
           <p>Gawd bless America</p>
         </div>
-        <Login />
+        <div className="container">
+          <Login />
+        </div>
       </div>
     )
   }

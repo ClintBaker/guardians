@@ -21,6 +21,7 @@ class Login extends React.Component {
   }
   onSubmit() {
     const { dispatch, login } = this.props;
+    console.log('submitting');
     dispatch(actions.startLogin(login));
   }
   render () {
