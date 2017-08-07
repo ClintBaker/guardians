@@ -1,8 +1,14 @@
-var express = require('express');
+const path = require('path');
+const http = require('http');
+const express = require('express');
+const socketIO = require('socket.io');
 
-// Create our app
-var app = express();
+const publicPath = path.join(__dirname, './public');
 const PORT = process.env.PORT || 3000;
+var app = express();
+var server = http.createServer(app);
+var io = socketIO(server);
+
 
 app.use(function (req, res, next){
   if (req.headers['x-forwarded-proto'] === 'https') {
@@ -12,8 +18,17 @@ app.use(function (req, res, next){
   }
 });
 
-app.use(express.static('public'));
+app.use(express.static(publicPath));
 
-app.listen(PORT, function () {
+io.on('connection', (socket) => {
+  console.log('new user connected');
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+
+});
+
+server.listen(PORT, function () {
   console.log('Express server is up on port ' + PORT);
 });

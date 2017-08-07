@@ -11,6 +11,16 @@ class Landing extends React.Component {
       videoIdInput: ''
     };
 
+    var socket = io();
+
+    socket.on('connect', () => {
+      console.log('connected to server');
+    });
+
+    socket.on('disconnect', () => {
+      console.log('disconnected from server');
+    });
+
     this.onSignOut = this.onSignOut.bind(this);
     this.handleChangeVideoId = this.handleChangeVideoId.bind(this);
     this.onSubmitId = this.onSubmitId.bind(this);
