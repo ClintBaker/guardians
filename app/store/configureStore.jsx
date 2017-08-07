@@ -1,13 +1,12 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
-import { loginReducer, authReducer, messageReducer } from 'reducers';
+import { authReducer, videoReducer } from 'reducers';
 
 export var configure = (initialState = {}) => {
   var reducer = redux.combineReducers({
-    login: loginReducer,
     auth: authReducer,
-    message: messageReducer
+    videoId: videoReducer
   });
 
 

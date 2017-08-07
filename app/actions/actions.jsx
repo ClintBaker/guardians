@@ -1,98 +1,45 @@
 import firebase, { firebaseRef } from 'app/firebase';
 import { hashHistory } from 'react-router';
 
-export var setPassword = (password) => {
+export var signOut = () => {
   return {
-    type: 'SET_PASSWORD',
-    password
-  };
-};
+    type: 'SIGN_OUT'
+  }
+}
 
-export var setEmail = (email) => {
-  return {
-    type: 'SET_EMAIL',
-    email
-  };
-};
-
-export var login = (email, uid, zip) => {
-  return {
-    type: 'LOGIN',
-    email,
-    uid
-  };
-};
-
-export var startLogin = (loginObj) => {
+export var startSignOut = () => {
   return (dispatch, getState) => {
-    return firebase.auth().signInWithEmailAndPassword(loginObj.email, loginObj.password).then((res) => {
-      dispatch(login(res.email, res.uid));
-      dispatch(setMessage('Logged in', 'success'));
-      dispatch(setUserInfo(res.uid));
-      hashHistory.push('/main');
+    firebase.auth().signOut().then(() => {
+      alert('signed out');
+      hashHistory.push('/');
+      dispatch(signOut());
     }).catch((e) => {
-      return firebase.auth().createUserWithEmailAndPassword(loginObj.email, loginObj.password).then((res) => {
-        dispatch(login(res.email, res.uid));
-        dispatch(setMessage('Account created.  Thank you valued customer', 'success'));
-        hashHistory.push('/main');
-      }).catch((e) => {
-        dispatch(setMessage('Login failed', 'danger'));
-      })
+
     });
   };
 };
 
-export var setMessage = (message, attr) => {
+export var login = (uid) => {
   return {
-    type: 'SET_MESSAGE',
-    message,
-    attr
+    type: 'LOGIN',
+    uid
   };
 };
 
-export var startLogout = () => {
+export var startLogin = (email, password) => {
   return (dispatch, getState) => {
-    return firebase.auth().signOut().then(() => {
-      dispatch(logout());
-      hashHistory.push('/');
+    firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
+      dispatch(login(user.uid));
+      hashHistory.push('home');
     }).catch((e) => {
       console.log(e);
     });
   };
 };
 
-export var logout = () => {
+export var startChangeVideoId = (id) => {
   return {
-    type: 'LOGOUT'
-  };
-};
-
-export var updateZip = (zip) => {
-  return {
-    type: 'UPDATE_ZIP',
-    zip
-  };
-};
-
-export var startUpdateZip = (zip) => {
-  return (dispatch, getState) => {
-    var uid = getState().auth.uid;
-    var zipRef = firebaseRef.child(`users/${uid}`).set({zip});
-    return zipRef.then(() => {
-      dispatch(updateZip(zip));
-    }).catch((e) => {
-      dispatch(setMessage('Unable to update zip', 'danger'));
-    });
-  };
-};
-
-export var setUserInfo = (uid) => {
-  return (dispatch, getState) => {
-    var zipRef = firebaseRef.child(`users/${uid}/zip`);
-
-    return zipRef.once('value').then((snapshot) => {
-      var zip = snapshot.val() || null;
-      dispatch(updateZip(zip));
-    });
+    type: 'CHANGE_VIDEO_ID',
+    id
   };
 };

@@ -1,67 +1,104 @@
 import React from 'react';
-import * as Redux from 'react-redux';
+import * as Redux from 'redux';
+import { connect } from 'react-redux';
+import { hashHistory } from 'react-router';
 
 import * as actions from 'app/actions/actions';
+import firebase from 'app/firebase/';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      password: '',
+      passwordConfirm: '',
+      email: ''
+    }
 
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.onLogin = this.onLogin.bind(this);
+    this.onSignup = this.onSignup.bind(this);
+    this.handleEmailInput = this.handleEmailInput.bind(this);
+    this.handlePasswordInput = this.handlePasswordInput.bind(this);
+    this.handlePasswordConfirmInput = this.handlePasswordConfirmInput.bind(this);
   }
-  handleEmailChange(event) {
-    const { dispatch } = this.props;
-    dispatch(actions.setEmail(event.target.value));
+
+
+  onLogin() {
+    const { password, passwordConfirm, email } = this.state;
+
+    if (password == passwordConfirm) {
+      this.props.dispatch(actions.startLogin(email, password));
+    } else {
+      alert('passwords must match');
+    }
+
   }
-  handlePasswordChange(event) {
-    const { dispatch } = this.props;
-    dispatch(actions.setPassword(event.target.value));
+
+  onSignup() {
+    const { password, passwordConfirm, email } = this.state;
+
+    if (password == passwordConfirm) {
+      firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
+        console.log('signed in b');
+        hashHistory.push('home');
+      }).catch((e) => {
+        console.log(e);
+      });
+    } else {
+      alert('passwords must match');
+    }
+
   }
-  onSubmit() {
-    const { dispatch, login } = this.props;
-    console.log('submitting');
-    dispatch(actions.startLogin(login));
+
+  handleEmailInput(e) {
+    this.setState({
+      email: e.target.value
+    });
   }
-  render () {
+
+  handlePasswordInput(e) {
+    this.setState({
+      password: e.target.value
+    });
+  }
+
+  handlePasswordConfirmInput(e) {
+    this.setState({
+      passwordConfirm: e.target.value
+    });
+  }
+
+  render() {
+
     return (
-      <div className="col-sm-offset-2 col-sm-8">
-        <h1 style={{textAlign: 'center', paddingBottom: '12px'}}>Login</h1>
-        <form className="form-horizontal">
+      <div className="container">
+        <h1>Caravan</h1>
+        <p>Internet together</p>
+        <form>
           <div className="form-group">
-            <label htmlFor="email" className="col-sm-2 control-label">Email</label>
-            <div className="col-sm-10">
-              <input type="email" className="form-control" id="email" value={this.props.login.email} onChange={this.handleEmailChange} />
-            </div>
+            <input className="form-control" value={this.state.email} placeholder="email" value={this.state.email} onChange={this.handleEmailInput} />
           </div>
           <div className="form-group">
-            <label htmlFor="password" className="col-sm-2 control-label">Password</label>
-            <div className="col-sm-10">
-              <input type="password" className="form-control" id="password" value={this.props.login.password} onChange={this.handlePasswordChange} />
-            </div>
+            <input type="password" className="form-control" value={this.state.password} placeholder="password" value={this.state.password}
+              onChange={this.handlePasswordInput} />
           </div>
           <div className="form-group">
-            <div className="col-sm-offset-2 col-sm-10">
-              <button type="submit" className="btn btn-primary" onClick={this.onSubmit}>Sign in</button>
-            </div>
+            <input type="password" className="form-control" value={this.state.passwordConfirm} placeholder="confirm password"
+              value={this.state.passwordConfirm} onChange={this.handlePasswordConfirmInput} />
           </div>
         </form>
+        <button className="btn btn-primary" onClick={this.onSignup}>Sign up</button>
+        <button className="btn btn-success" onClick={this.onLogin}>Log in</button>
       </div>
-    )
+    );
   }
 }
 
-const styles = {
-  center: {
-    textAlign: 'center'
-  }
-};
-
-export default Redux.connect(
+export default connect(
   (state) => {
     return {
-      login: state.login
+      auth: state.auth,
+      videoId: state.videoId
     }
   }
 )(Login);

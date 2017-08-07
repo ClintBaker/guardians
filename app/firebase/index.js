@@ -2,12 +2,12 @@ import firebase from 'firebase';
 
 try {
   var config = {
-      apiKey: "AIzaSyD6yjoHzt_3GvCtTDJecX4qKF4DypTm2r4",
-      authDomain: "guardians-33cbd.firebaseapp.com",
-      databaseURL: "https://guardians-33cbd.firebaseio.com",
-      projectId: "guardians-33cbd",
-      storageBucket: "guardians-33cbd.appspot.com",
-      messagingSenderId: "93644014740"
+      apiKey: "AIzaSyBX5Upzqp49s766Vr0C2drlsrKN6vAA7aM",
+      authDomain: "caravan-bbb03.firebaseapp.com",
+      databaseURL: "https://caravan-bbb03.firebaseio.com",
+      projectId: "caravan-bbb03",
+      storageBucket: "caravan-bbb03.appspot.com",
+      messagingSenderId: "797209950813"
     };
 
   firebase.initializeApp(config);
