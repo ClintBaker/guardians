@@ -7,19 +7,23 @@ import YouTube from 'react-youtube';
 class Landing extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      videoIdInput: ''
-    };
+    this.state = { videoIdInput: '' }
 
     var socket = io();
 
     socket.on('connect', () => {
-      console.log('connected to server');
+      
     });
 
     socket.on('disconnect', () => {
-      console.log('disconnected from server');
+
     });
+
+    socket.on('newVideoId', (data) => {
+      var id = data.videoId;
+      this.props.dispatch(actions.startChangeVideoId(id));
+    });
+
 
     this.onSignOut = this.onSignOut.bind(this);
     this.handleChangeVideoId = this.handleChangeVideoId.bind(this);
@@ -29,7 +33,10 @@ class Landing extends React.Component {
   onSubmitId() {
     const { dispatch } = this.props;
 
+    var socket = io();
+
     dispatch(actions.startChangeVideoId(this.state.videoIdInput));
+    socket.emit('broadcastVideoId', {videoId: this.state.videoIdInput});
   }
 
   onSignOut() {
@@ -39,7 +46,7 @@ class Landing extends React.Component {
   }
 
   _onReady(event) {
-
+    event.target.pauseVideo();
   }
 
   handleChangeVideoId(e) {
@@ -92,3 +99,9 @@ export default connect(
     }
   }
 )(Landing);
+
+
+// https://www.youtube.com/watch?v=qs6FJZ9Qz7o
+// https://www.youtube.com/watch?v=tbxh2cWokLs
+// https://www.youtube.com/watch?v=CUQADT8-JP8
+// https://socket.io/docs/
