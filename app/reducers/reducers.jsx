@@ -20,3 +20,28 @@ export var videoReducer = (state = 'WslamjoE770', action) => {
       return state;
   };
 };
+
+export var sessionReducer = (state = {id: null, messages: [], sessions: []}, action) => {
+  switch(action.type) {
+    case 'UPDATE_SESSION':
+      return {
+        ...state,
+        id: action.seshName
+      };
+    case 'HANDLE_NEW_MESSAGE':
+      return {
+        ...state,
+        messages: [
+          ...state.messages,
+          action.messageObj
+        ]
+      };
+    case 'UPDATE_SESSIONS_LIST':
+      return {
+        ...state,
+        sessions: action.sessionsArray
+      };
+    default:
+      return state;
+  };
+};

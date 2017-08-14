@@ -1,12 +1,13 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
-import { authReducer, videoReducer } from 'reducers';
+import { authReducer, videoReducer, sessionReducer } from 'reducers';
 
 export var configure = (initialState = {}) => {
   var reducer = redux.combineReducers({
     auth: authReducer,
-    videoId: videoReducer
+    videoId: videoReducer,
+    room: sessionReducer
   });
 
 

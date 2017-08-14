@@ -4,20 +4,14 @@ import * as actions from 'app/actions/actions';
 import { connect } from 'react-redux';
 import YouTube from 'react-youtube';
 
+import Rooms from './Rooms.jsx';
+
 class Landing extends React.Component {
   constructor(props) {
     super(props);
     this.state = { videoIdInput: '' }
 
     var socket = io();
-
-    socket.on('connect', () => {
-      
-    });
-
-    socket.on('disconnect', () => {
-
-    });
 
     socket.on('newVideoId', (data) => {
       var id = data.videoId;
@@ -31,12 +25,12 @@ class Landing extends React.Component {
   }
 
   onSubmitId() {
-    const { dispatch } = this.props;
+    const { dispatch, room } = this.props;
 
     var socket = io();
 
-    dispatch(actions.startChangeVideoId(this.state.videoIdInput));
-    socket.emit('broadcastVideoId', {videoId: this.state.videoIdInput});
+    // dispatch(actions.startChangeVideoId(this.state.videoIdInput));
+    socket.emit('broadcastVideoId', {videoId: this.state.videoIdInput, room });
   }
 
   onSignOut() {
@@ -86,6 +80,7 @@ class Landing extends React.Component {
             </div>
           </form>
         </div>
+        <Rooms />
       </div>
     );
   }
@@ -95,7 +90,8 @@ export default connect(
   (state) => {
     return {
       auth: state.auth,
-      videoId: state.videoId
+      videoId: state.videoId,
+      room: state.room
     }
   }
 )(Landing);
