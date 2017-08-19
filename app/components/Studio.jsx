@@ -2,14 +2,19 @@ import React from 'react';
 import * as Redux from 'redux';
 import * as actions from 'app/actions/actions';
 import { connect } from 'react-redux';
+import { hashHistory } from 'react-router';
+import YouTube from 'react-youtube';
 
 class Studio extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { message: '' };
+    this.state = { message: '', videoId: '' };
 
     this.handleChangeMessage = this.handleChangeMessage.bind(this);
     this.handleSendMessage = this.handleSendMessage.bind(this);
+    this.handleChangeVideoId = this.handleChangeVideoId.bind(this);
+    this.hanldeSubmitVideoId = this.handleSubmitVideoId.bind(this);
+    this.handleLeaveRoom = this.handleLeaveRoom.bind(this);
   }
 
   handleChangeMessage(e) {
@@ -18,11 +23,17 @@ class Studio extends React.Component {
     this.setState({ message });
   }
 
-  handleSendMessage() {
+  handleSendMessage(e) {
+    e.preventDefault();
 
     this.props.dispatch(actions.sendMessage(this.state.message, this.props.auth.uid, this.props.room.id));
     this.setState({ message: '' });
-  };
+  }
+
+  handleLeaveRoom() {
+    this.props.dispatch(actions.leaveSession());
+    hashHistory.push('van');
+  }
 
   renderMessages() {
     var { room } = this.props;
@@ -35,19 +46,59 @@ class Studio extends React.Component {
     );
   }
 
+  handleSubmitVideoId(e) {
+    e.preventDefault();
+
+    this.props.dispatch(actions.submitVideoid(this.state.videoId));
+    this.setState({videoId: ''});
+  }
+
+  handleChangeVideoId(e) {
+    var id = e.target.value;
+
+    this.setState({videoId: id});
+  }
+
+  _onReady() {
+
+  }
+
   render() {
+    const opts = {
+      height: '390',
+      width: '640',
+      playerVars: {
+        autoplay: 1
+      }
+    };
 
     return (
       <div className="container">
         <h1>Caravan Studio</h1>
         <div>
           <h3>Message the homies</h3>
-          <input value={this.state.message} onChange={this.handleChangeMessage} />
-          <button className="btn btn-success" onClick={this.handleSendMessage}>Send</button>
+          <button className="btn btn-danger" onClick={this.handleLeaveRoom}>Leave room</button>
         </div>
 
-        <div>
-          {this.renderMessages()}
+        <div className="row">
+          <div className="col-sm-8">
+            <YouTube
+              videoId={this.props.videoId}
+              opts={opts}
+              onReady={this._onReady}
+            />
+            <form onSubmit={this.hanldeSubmitVideoId}>
+              <input placeholder="Vide ID" value={this.state.videoId} onChange={this.handleChangeVideoId} />
+              <button type="submit" className="btn btn-primary">Change video</button>
+            </form>
+          </div>
+          <div className="col-sm-4">
+            {this.renderMessages()}
+            <form onSubmit={this.handleSendMessage}>
+              <input value={this.state.message} onChange={this.handleChangeMessage} />
+              <button type="submit" className="btn btn-success">Send</button>
+            </form>
+          </div>
         </div>
       </div>
     );

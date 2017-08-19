@@ -35,7 +35,7 @@ class Van extends React.Component {
   renderSessions() {
     var { room } = this.props;
     const sessions = room.sessions.map((session) =>
-      <li key={session.name + (Math.random() * 100)}><a style={{fontWeight: 'bold'}} onClick={this.handleJoinRoom.bind(this, session.id)}>{session.name}: </a>{session.chief}</li>
+      <li key={session.name + (Math.random() * 100)}><a style={{fontWeight: 'bold', cursor: 'pointer'}} onClick={this.handleJoinRoom.bind(this, session.id)}>{session.name}: </a>{session.chief}</li>
     );
 
     return (

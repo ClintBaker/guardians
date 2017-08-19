@@ -41,6 +41,17 @@ export var startLogin = (email, password) => {
   };
 };
 
+
+// Submit new video id *****
+
+export var submitVideoid = (id) => {
+  return (dispatch, getState) => {
+    var state = getState();
+    console.log(state.room.id);
+    firebaseRef.child(`sessions/${state.room.id}`).update({"videoId": id});
+  };
+};
+
 // Change video id *****
 
 export var startChangeVideoId = (id) => {
@@ -59,6 +70,11 @@ export var joinSesh = (seshId) => {
     firebaseRef.child('sessions/' + seshId + '/messages').on('child_added', (snapshot) => {
       var message = snapshot.val();
       dispatch(handleNewMessage(message));
+    });
+
+    firebaseRef.child('sessions/' + seshId + '/videoId').on('value', (snapshot) => {
+      var id = snapshot.val();
+      dispatch(startChangeVideoId(id));
     });
   };
 };
@@ -141,5 +157,13 @@ export var handleNewMessage = (messageObj) => {
   return {
     type: 'HANDLE_NEW_MESSAGE',
     messageObj
+  };
+};
+
+// Leave session *****
+
+export var leaveSession = () => {
+  return {
+    type: 'LEAVE_SESSION'
   };
 };

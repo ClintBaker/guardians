@@ -41,6 +41,12 @@ export var sessionReducer = (state = {id: null, messages: [], sessions: []}, act
         ...state,
         sessions: action.sessionsArray
       };
+    case 'LEAVE_SESSION':
+      return {
+        id: null,
+        messages: [],
+        sessions: []
+      };
     default:
       return state;
   };
