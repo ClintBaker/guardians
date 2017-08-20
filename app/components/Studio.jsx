@@ -4,6 +4,7 @@ import * as actions from 'app/actions/actions';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 import YouTube from 'react-youtube';
+import ReactDOM from 'react-dom';
 
 class Studio extends React.Component {
   constructor(props) {
@@ -16,6 +17,16 @@ class Studio extends React.Component {
     this.hanldeSubmitVideoId = this.handleSubmitVideoId.bind(this);
     this.handleLeaveRoom = this.handleLeaveRoom.bind(this);
   }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    const node = ReactDOM.findDOMNode(this.messagesEnd);
+    node.scrollTop = node.scrollHeight;
+  }
+
 
   handleChangeMessage(e) {
     var message = e.target.value;
@@ -38,7 +49,7 @@ class Studio extends React.Component {
   renderMessages() {
     var { room } = this.props;
     const messages = room.messages.map((message) =>
-      <li key={message.user + (Math.random() * 100)}><span style={{fontWeight: 'bold'}}>{message.user}: </span>{message.message}</li>
+      <li key={message.user + (Math.random() * 100)}><span style={{fontWeight: 'bold', color: message.color}}>{message.user}: </span>{message.message}</li>
     );
 
     return (
@@ -92,13 +103,16 @@ class Studio extends React.Component {
               <button type="submit" className="btn btn-primary">Change video</button>
             </form>
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-4" style={{"overflow-y": 'scroll', height: '700px'}} ref={(el) => { this.messagesEnd = el; }}>
             {this.renderMessages()}
             <form onSubmit={this.handleSendMessage}>
               <input value={this.state.message} onChange={this.handleChangeMessage} />
               <button type="submit" className="btn btn-success">Send</button>
             </form>
           </div>
+        </div>
+
+        <div style={{ float:"left", clear: "both" }}>
         </div>
       </div>
     );

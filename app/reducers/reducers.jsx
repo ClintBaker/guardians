@@ -7,6 +7,11 @@ export var authReducer = (state = {}, action) => {
       };
     case 'SIGN_OUT':
       return {};
+    case 'UPDATE_MY_COLOR':
+      return {
+        ...state,
+        myColor: action.color
+      }
     default:
       return state;
   };

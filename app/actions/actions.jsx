@@ -61,10 +61,29 @@ export var startChangeVideoId = (id) => {
   };
 };
 
+// Update my color *****
+
+export var updateMyColor = (color) => {
+  return {
+    type: 'UPDATE_MY_COLOR',
+    color
+  };
+};
+
 // Join sesh *****
 
 export var joinSesh = (seshId) => {
   return (dispatch, getState) => {
+
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+    console.log(color);
+
+
+    dispatch(updateMyColor(color));
     dispatch(updateSession(seshId));
     hashHistory.push('studio');
     firebaseRef.child('sessions/' + seshId + '/messages').on('child_added', (snapshot) => {
@@ -145,10 +164,12 @@ export var updateSessionsList = (sessionsArray) => {
 
 export var sendMessage = (message, uid, roomId) => {
   return (dispatch, getState) => {
+    var state = getState();
     firebaseRef.child(`sessions/${roomId}/messages`).push({
       message,
       user: uid,
-      time: Date.now()
+      time: Date.now(),
+      color: `${state.auth.myColor}`
     });
   };
 };

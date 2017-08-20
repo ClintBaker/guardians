@@ -48,7 +48,7 @@ class Landing extends React.Component {
 
     this.setState({ videoIdInput: id });
   }
-
+  
   render() {
     const opts = {
       height: '390',
