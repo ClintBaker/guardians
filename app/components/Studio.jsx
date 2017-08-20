@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 import YouTube from 'react-youtube';
 import ReactDOM from 'react-dom';
+import moment from 'moment';
+
+import Library from 'app/components/Library';
 
 class Studio extends React.Component {
   constructor(props) {
@@ -49,7 +52,7 @@ class Studio extends React.Component {
   renderMessages() {
     var { room } = this.props;
     const messages = room.messages.map((message) =>
-      <li key={message.user + (Math.random() * 100)}><span style={{fontWeight: 'bold', color: message.color}}>{message.user}: </span>{message.message}</li>
+      <li key={message.user + (Math.random() * 100)}><span style={{fontWeight: 'bold', color: message.color}}>{message.user}: </span> {message.message}</li>
     );
 
     return (
@@ -103,7 +106,7 @@ class Studio extends React.Component {
               <button type="submit" className="btn btn-primary">Change video</button>
             </form>
           </div>
-          <div className="col-sm-4" style={{"overflow-y": 'scroll', height: '700px'}} ref={(el) => { this.messagesEnd = el; }}>
+          <div className="col-sm-4" style={{overflowY: 'scroll', height: '700px'}} ref={(el) => { this.messagesEnd = el; }}>
             {this.renderMessages()}
             <form onSubmit={this.handleSendMessage}>
               <input value={this.state.message} onChange={this.handleChangeMessage} />
@@ -112,7 +115,8 @@ class Studio extends React.Component {
           </div>
         </div>
 
-        <div style={{ float:"left", clear: "both" }}>
+        <div>
+          <Library />
         </div>
       </div>
     );
@@ -124,7 +128,8 @@ export default connect(
     return {
       auth: state.auth,
       videoId: state.videoId,
-      room: state.room
+      room: state.room,
+      library: state.library
     }
   }
 )(Studio);

@@ -1,5 +1,6 @@
 import firebase, { firebaseRef } from 'app/firebase';
 import { hashHistory } from 'react-router';
+import axios from 'axios';
 
 // Sign out *****
 
@@ -47,7 +48,6 @@ export var startLogin = (email, password) => {
 export var submitVideoid = (id) => {
   return (dispatch, getState) => {
     var state = getState();
-    console.log(state.room.id);
     firebaseRef.child(`sessions/${state.room.id}`).update({"videoId": id});
   };
 };
@@ -80,7 +80,6 @@ export var joinSesh = (seshId) => {
       for (var i = 0; i < 6; i++) {
         color += letters[Math.floor(Math.random() * 16)];
       }
-    console.log(color);
 
 
     dispatch(updateMyColor(color));
@@ -186,5 +185,47 @@ export var handleNewMessage = (messageObj) => {
 export var leaveSession = () => {
   return {
     type: 'LEAVE_SESSION'
+  };
+};
+
+// Get popular videos
+
+export var getPopularVideos = () => {
+  return (dispatch, getState) => {
+
+    axios.get('https://www.googleapis.com/youtube/v3/search', {
+      params: {
+        part: 'snippet',
+        type: 'video',
+        maxResults: 50,
+        order: 'relevance',
+        q: 'VEMO',
+        key: 'AIzaSyBuoT0p85hUEIYMNr_6rdZKxgnpFGmn5Co'
+      }
+    }).then((res) => {
+      dispatch(updateVideoLibrary(res.data.items));
+    }).catch((e) => {
+      console.log(e);
+    });
+  };
+};
+
+export var updateVideoLibrary = (items) => {
+  return {
+    type: 'UPDATE_VIDEO_LIBRARY',
+    items
+  };
+};
+
+// Queue video id *****
+
+export var queueVideoId = (id, url, title) => {
+  return (dispatch, getState) => {
+    var state = getState();
+    firebaseRef.child(`sessions/${state.room.id}/queue`).push({
+      id
+      // url,
+      // title
+    });
   };
 };

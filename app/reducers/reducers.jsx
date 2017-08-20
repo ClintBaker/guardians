@@ -56,3 +56,15 @@ export var sessionReducer = (state = {id: null, messages: [], sessions: []}, act
       return state;
   };
 };
+
+export var videoLibraryReducer = (state = {}, action) => {
+  switch(action.type) {
+    case 'UPDATE_VIDEO_LIBRARY':
+      return {
+        ...state,
+        videos: action.items
+      };
+    default:
+      return state;
+  };
+};
