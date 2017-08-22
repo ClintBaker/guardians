@@ -213,7 +213,7 @@ export var getPopularVideos = () => {
         type: 'video',
         maxResults: 50,
         order: 'relevance',
-        q: 'VEMO',
+        q: 'music',
         key: 'AIzaSyBuoT0p85hUEIYMNr_6rdZKxgnpFGmn5Co'
       }
     }).then((res) => {

@@ -20,10 +20,20 @@ class Studio extends React.Component {
     this.handleChangeVideoId = this.handleChangeVideoId.bind(this);
     this.hanldeSubmitVideoId = this.handleSubmitVideoId.bind(this);
     this.handleLeaveRoom = this.handleLeaveRoom.bind(this);
+    this.handleVideoEnd = this.handleVideoEnd.bind(this);
   }
 
   componentDidUpdate() {
     this.scrollToBottom();
+  }
+
+  handleVideoEnd() {
+    const { library, dispatch } = this.props;
+
+    if (library.queue) {
+      dispatch(actions.submitVideoid(library.queue[0].id));
+      dispatch(actions.removeFromQueue(library.queue[0].id));
+    }
   }
 
   scrollToBottom() {
@@ -101,6 +111,7 @@ class Studio extends React.Component {
               videoId={this.props.videoId}
               opts={opts}
               onReady={this._onReady}
+              onEnd={this.handleVideoEnd}
             />
             <Queue />
             <form onSubmit={this.hanldeSubmitVideoId}>
