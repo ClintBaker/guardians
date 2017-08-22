@@ -70,6 +70,15 @@ export var updateMyColor = (color) => {
   };
 };
 
+// Update sesh que *****
+
+export var updateSeshQue = (queue) => {
+  return {
+    type: 'UPDATE_SESH_QUE',
+    queue
+  };
+};
+
 // Join sesh *****
 
 export var joinSesh = (seshId) => {
@@ -93,6 +102,11 @@ export var joinSesh = (seshId) => {
     firebaseRef.child('sessions/' + seshId + '/videoId').on('value', (snapshot) => {
       var id = snapshot.val();
       dispatch(startChangeVideoId(id));
+    });
+
+    firebaseRef.child(`sessions/${seshId}/queue`).on('child_added', (snapshot) => {
+      var queue = snapshot.val();
+      dispatch(updateSeshQue(queue));
     });
   };
 };
@@ -222,10 +236,34 @@ export var updateVideoLibrary = (items) => {
 export var queueVideoId = (id, url, title) => {
   return (dispatch, getState) => {
     var state = getState();
-    firebaseRef.child(`sessions/${state.room.id}/queue`).push({
-      id
-      // url,
-      // title
+    firebaseRef.child(`sessions/${state.room.id}/queue/${id}`).set({
+      id,
+      url,
+      title
     });
+  };
+};
+
+//Remove from queue *****
+
+export var removeFromQueue = (id) => {
+  return (dispatch, getState) => {
+    var state = getState();
+    firebaseRef.child(`sessions/${state.room.id}/queue/${id}`).set(null).then(() => {
+      firebaseRef.child(`sessions/${state.room.id}/queue`).once('value').then((snapshot) => {
+        var queue = snapshot.val();
+        var queueArray = Object.keys(queue).map((key) => queue[key]);
+        dispatch(updateQueueOnDelete(queueArray));
+      });
+    });
+  };
+};
+
+// Update queue on delete *****
+
+export var updateQueueOnDelete = (queue) => {
+  return {
+    type: 'UPDATE_QUEUE_ON_DELETE',
+    queue
   };
 };

@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom';
 import moment from 'moment';
 
 import Library from 'app/components/Library';
+import Queue from 'app/components/Queue';
 
 class Studio extends React.Component {
   constructor(props) {
@@ -101,6 +102,7 @@ class Studio extends React.Component {
               opts={opts}
               onReady={this._onReady}
             />
+            <Queue />
             <form onSubmit={this.hanldeSubmitVideoId}>
               <input placeholder="Vide ID" value={this.state.videoId} onChange={this.handleChangeVideoId} />
               <button type="submit" className="btn btn-primary">Change video</button>

@@ -57,12 +57,32 @@ export var sessionReducer = (state = {id: null, messages: [], sessions: []}, act
   };
 };
 
-export var videoLibraryReducer = (state = {}, action) => {
+export var videoLibraryReducer = (state = {queue: []}, action) => {
   switch(action.type) {
     case 'UPDATE_VIDEO_LIBRARY':
       return {
         ...state,
         videos: action.items
+      };
+    case 'UPDATE_SESH_QUE':
+      return {
+        ...state,
+        queue: [
+          ...state.queue,
+          action.queue
+        ]
+      };
+    case 'UPDATE_QUEUE_ON_DELETE':
+      return {
+        ...state,
+        queue: [
+          ...action.queue
+        ]
+      };
+    case 'LEAVE_SESSION':
+      return {
+        ...state,
+        queue: []
       };
     default:
       return state;

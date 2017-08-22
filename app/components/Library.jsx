@@ -31,7 +31,7 @@ class Library extends React.Component {
   submitButton2(id, url, title) {
     const { dispatch } = this.props;
 
-    dispatch(actions.queueVideoId(id));
+    dispatch(actions.queueVideoId(id, url, title));
   }
 
   renderVideos() {
