@@ -84,6 +84,11 @@ export var videoLibraryReducer = (state = {queue: []}, action) => {
         ...state,
         queue: []
       };
+    case 'UPDATE_SEARCH':
+      return {
+        ...state,
+        searchItems: action.searchItems
+      };
     default:
       return state;
   };

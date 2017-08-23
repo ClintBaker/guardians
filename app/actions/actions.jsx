@@ -34,6 +34,7 @@ export var login = (uid) => {
 export var startLogin = (email, password) => {
   return (dispatch, getState) => {
     firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
+      console.log(user);
       dispatch(login(user.uid));
       hashHistory.push('van');
     }).catch((e) => {
@@ -265,5 +266,35 @@ export var updateQueueOnDelete = (queue) => {
   return {
     type: 'UPDATE_QUEUE_ON_DELETE',
     queue
+  };
+};
+
+//Get video search *****
+
+export var getVideoSearch = (search) => {
+  return (dispatch, getState) => {
+    axios.get('https://www.googleapis.com/youtube/v3/search', {
+      params: {
+        part: 'snippet',
+        type: 'video',
+        maxResults: 50,
+        order: 'relevance',
+        q: search,
+        key: 'AIzaSyBuoT0p85hUEIYMNr_6rdZKxgnpFGmn5Co'
+      }
+    }).then((res) => {
+      dispatch(updateSearch(res.data.items));
+    }).catch((e) => {
+      console.log(e);
+    });
+  };
+};
+
+//Update search *****
+
+export var updateSearch = (searchItems) => {
+  return {
+    type: 'UPDATE_SEARCH',
+    searchItems
   };
 };

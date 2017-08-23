@@ -5,10 +5,12 @@ import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 import YouTube from 'react-youtube';
 import ReactDOM from 'react-dom';
-import moment from 'moment';
 
+import firebase from 'app/firebase';
 import Library from 'app/components/Library';
 import Queue from 'app/components/Queue';
+import Search from 'app/components/Search';
+import Nav from 'app/components/Nav';
 
 class Studio extends React.Component {
   constructor(props) {
@@ -21,6 +23,10 @@ class Studio extends React.Component {
     this.hanldeSubmitVideoId = this.handleSubmitVideoId.bind(this);
     this.handleLeaveRoom = this.handleLeaveRoom.bind(this);
     this.handleVideoEnd = this.handleVideoEnd.bind(this);
+
+    if (firebase.auth().currentUser) {
+      console.log(firebase.auth().currentUser);
+    }
   }
 
   componentDidUpdate() {
@@ -98,38 +104,41 @@ class Studio extends React.Component {
     };
 
     return (
-      <div className="container">
-        <h1>Caravan Studio</h1>
-        <div>
-          <h3>Message the homies</h3>
-          <button className="btn btn-danger" onClick={this.handleLeaveRoom}>Leave room</button>
-        </div>
-
-        <div className="row">
-          <div className="col-sm-8">
-            <YouTube
-              videoId={this.props.videoId}
-              opts={opts}
-              onReady={this._onReady}
-              onEnd={this.handleVideoEnd}
-            />
-            <Queue />
-            <form onSubmit={this.hanldeSubmitVideoId}>
-              <input placeholder="Vide ID" value={this.state.videoId} onChange={this.handleChangeVideoId} />
-              <button type="submit" className="btn btn-primary">Change video</button>
-            </form>
+      <div>
+        <Nav />
+        <div className="container">
+          <h1>Caravan Studio</h1>
+          <div>
+            <h3>Message the homies</h3>
+            <button className="btn btn-danger" onClick={this.handleLeaveRoom}>Leave room</button>
           </div>
-          <div className="col-sm-4" style={{overflowY: 'scroll', height: '700px'}} ref={(el) => { this.messagesEnd = el; }}>
-            {this.renderMessages()}
-            <form onSubmit={this.handleSendMessage}>
-              <input value={this.state.message} onChange={this.handleChangeMessage} />
-              <button type="submit" className="btn btn-success">Send</button>
-            </form>
-          </div>
-        </div>
 
-        <div>
-          <Library />
+          <div className="row">
+            <div className="col-sm-8">
+              <YouTube
+                videoId={this.props.videoId}
+                opts={opts}
+                onReady={this._onReady}
+                onEnd={this.handleVideoEnd}
+              />
+              <Queue />
+              <form onSubmit={this.hanldeSubmitVideoId}>
+                <input placeholder="Vide ID" value={this.state.videoId} onChange={this.handleChangeVideoId} />
+                <button type="submit" className="btn btn-primary">Change video</button>
+              </form>
+            </div>
+            <div className="col-sm-4" style={{overflowY: 'scroll', height: '700px'}} ref={(el) => { this.messagesEnd = el; }}>
+              {this.renderMessages()}
+              <form onSubmit={this.handleSendMessage}>
+                <input value={this.state.message} onChange={this.handleChangeMessage} />
+                <button type="submit" className="btn btn-success">Send</button>
+              </form>
+            </div>
+          </div>
+
+          <div>
+            <Library />
+          </div>
         </div>
       </div>
     );

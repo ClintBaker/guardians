@@ -20,6 +20,15 @@ class Login extends React.Component {
     this.handleEmailInput = this.handleEmailInput.bind(this);
     this.handlePasswordInput = this.handlePasswordInput.bind(this);
     this.handlePasswordConfirmInput = this.handlePasswordConfirmInput.bind(this);
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.props.dispatch(actions.login(user.uid));
+        hashHistory.push('van');
+      } else {
+
+      }
+    });
   }
 
 
