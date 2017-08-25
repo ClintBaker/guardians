@@ -31,7 +31,8 @@ export var sessionReducer = (state = {id: null, messages: [], sessions: []}, act
     case 'UPDATE_SESSION':
       return {
         ...state,
-        id: action.seshName
+        id: action.seshId,
+        name: action.seshName
       };
     case 'HANDLE_NEW_MESSAGE':
       return {

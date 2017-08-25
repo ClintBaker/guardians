@@ -73,7 +73,7 @@ class Library extends React.Component {
               <p>{video.snippet.description}</p>
               <span><small>{video.snippet.publishedAt}</small></span>
               <button onClick={() => this.handleButton1(video.id.videoId, isChief)} className="btn">{buttonText}</button>
-              <button onClick={() => this.submitButton2(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title)} className="btn" style={{hidden: button2Hidden}}>{buttonText2 ? buttonText2 : 'none'}</button>
+              <button onClick={() => this.submitButton2(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title)} className="btn" style={{visibility: button2Hidden}}>{buttonText2 ? buttonText2 : 'none'}</button>
             </div>
           );
         return (

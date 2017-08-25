@@ -26,6 +26,7 @@ class Search extends React.Component {
     this.props.dispatch(actions.getVideoSearch(search));
 
     this.setState({ search: '' });
+    hashHistory.push('browse');
   }
 
   render() {

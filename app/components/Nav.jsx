@@ -2,7 +2,7 @@ import React from 'react';
 import * as Redux from 'redux';
 import * as actions from 'app/actions/actions';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
+import { hashHistory, Link } from 'react-router';
 
 import Search from 'app/components/Search';
 
@@ -11,11 +11,24 @@ class Nav extends React.Component {
     super(props);
 
     this.handleLogout = this.handleLogout.bind(this);
+    this.renderRoom = this.renderRoom.bind(this);
   }
 
   handleLogout(e) {
     e.preventDefault();
     this.props.dispatch(actions.startSignOut());
+  }
+
+  renderRoom() {
+    const { room } = this.props;
+
+    if (room) {
+      return (
+        <li><Link to="studio"><span style={{color: 'red'}}>Live</span> {this.props.room.name ? this.props.room.name : ''}</Link></li>
+      );
+    } else {
+
+    }
   }
 
   render() {
@@ -33,23 +46,12 @@ class Nav extends React.Component {
     </div>
     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul className="nav navbar-nav">
-        <li className="active"><a href="#">Link <span className="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
-        <li className="dropdown">
-          <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span className="caret"></span></a>
-          <ul className="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" className="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" className="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
+        <li><Link to="browse">Browse</Link></li>
+        <li><a href="#">Library</a></li>
       </ul>
         <Search />
       <ul className="nav navbar-nav navbar-right">
+        {this.renderRoom()}
         <li><a style={{cursor: 'pointer'}} onClick={this.handleLogout}>Logout</a></li>
       </ul>
     </div>

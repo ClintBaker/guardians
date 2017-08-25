@@ -91,9 +91,13 @@ export var joinSesh = (seshId) => {
         color += letters[Math.floor(Math.random() * 16)];
       }
 
+      firebaseRef.child(`sessions/${seshId}/name`).once('value').then((snapshot) => {
+        var seshName = snapshot.val();
+        dispatch(updateSession(seshId, seshName));
+      });
+
 
     dispatch(updateMyColor(color));
-    dispatch(updateSession(seshId));
     hashHistory.push('studio');
     firebaseRef.child('sessions/' + seshId + '/messages').on('child_added', (snapshot) => {
       var message = snapshot.val();
@@ -128,7 +132,7 @@ export var createSesh = (seshName, uid) => {
         }
       ]
     }).then(() => {
-      dispatch(updateSession(newSeshName));
+      dispatch(updateSession(newSeshName, seshName));
       hashHistory.push('studio');
       firebaseRef.child(`sessions/${newSeshName}/messages`).on('child_added', (snapshot) => {
         var message = snapshot.val();
@@ -142,9 +146,10 @@ export var createSesh = (seshName, uid) => {
 
 // Update session *****
 
-export var updateSession = (seshName) => {
+export var updateSession = (seshId, seshName) => {
   return {
     type: 'UPDATE_SESSION',
+    seshId,
     seshName
   };
 };
