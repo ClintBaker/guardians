@@ -21,6 +21,15 @@ class OGStudio extends React.Component {
     super(props);
 
     this.renderMain = this.renderMain.bind(this);
+    this.renderChat = this.renderChat.bind(this);
+  }
+
+  renderChat() {
+    if (this.props.nav == 'studio') {
+      return (
+        <Chat />
+      );
+    }
   }
 
   renderMain() {
@@ -47,9 +56,11 @@ class OGStudio extends React.Component {
     return (
       <div>
         <Nav />
-        <Chat />
         <div className="container-fluid" style={{marginTop: '55px'}}>
-          <Video />
+          <div className="row">
+            <Video />
+            {this.renderChat()}
+          </div>
           {this.renderMain()}
         </div>
       </div>

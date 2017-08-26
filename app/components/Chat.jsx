@@ -60,12 +60,12 @@ class Chat extends React.Component {
     }
 
     return (
-      <div className="col-sm-4" style={{overflowY: 'scroll', height: '600px', position: 'fixed', height: '80%', left: '70%', margin: '45px', zIndex: '101'}} ref={(el) => { this.messagesEnd = el; }}>
-        <div>
+      <div className="col-sm-4" style={{overflowY: 'scroll', height: '70vh', marginTop: '20px'}}>
+        <div ref={(el) => { this.messagesEnd = el; }}>
           {this.renderMessages()}
-          <form onSubmit={this.handleSendMessage} style={chatStyle}>
-            <input value={this.state.message} onChange={this.handleChangeMessage} />
-            <button type="submit" className="btn btn-success">Send</button>
+          <form onSubmit={this.handleSendMessage} style={chatStyle} className="form-group">
+            <input value={this.state.message} onChange={this.handleChangeMessage} className="form-control" style={{height: '40px'}} />
+            <button type="submit" className="btn btn-success" style={{float: 'right'}}>Send</button>
           </form>
         </div>
       </div>

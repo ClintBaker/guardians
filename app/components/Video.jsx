@@ -42,8 +42,8 @@ class Video extends React.Component {
     };
 
     const style1 = {
-      height: '390',
-      width: '640'
+      height: '70vh',
+      width: '100%'
     };
 
     const style2 = {
@@ -77,22 +77,19 @@ class Video extends React.Component {
     }
 
     return (
-      <div>
-        <h1>Video</h1>
-          <div className="container">
-            <div className="col-sm-8" style={style}>
-              <div style={styleAB}>
-                <a onClick={() => this.handleNav('studio')} style={{cursor: 'pointer'}}><span style={{color: 'red', cursor: 'pointer'}}>Live</span> {this.props.room.name ? this.props.room.name : ''}</a>
+            <div className="col-sm-8">
+              <div style={style}>
+                <div style={styleAB}>
+                  <a onClick={() => this.handleNav('studio')} style={{cursor: 'pointer'}}><span style={{color: 'red', cursor: 'pointer'}}>Live</span> {this.props.room.name ? this.props.room.name : ''}</a>
+                </div>
+                <YouTube
+                  videoId={this.props.videoId}
+                  opts={opts}
+                  onReady={this._onReady}
+                  onEnd={this.handleVideoEnd}
+                />
               </div>
-              <YouTube
-                videoId={this.props.videoId}
-                opts={opts}
-                onReady={this._onReady}
-                onEnd={this.handleVideoEnd}
-              />
             </div>
-          </div>
-      </div>
     );
   }
 }

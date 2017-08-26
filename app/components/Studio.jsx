@@ -11,6 +11,7 @@ import Library from 'app/components/Library';
 import Queue from 'app/components/Queue';
 import Search from 'app/components/Search';
 import Nav from 'app/components/Nav';
+import Chat from 'app/components/Chat';
 
 class Studio extends React.Component {
   constructor(props) {
