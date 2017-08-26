@@ -14,6 +14,11 @@ class Browse extends React.Component {
     this.renderLibrary = this.renderLibrary.bind(this);
     this.handleAddToQueue = this.handleAddToQueue.bind(this);
     this.handlePlayVideo = this.handlePlayVideo.bind(this);
+    this.handleSuggestVideo = this.handleSuggestVideo.bind(this);
+  }
+
+  handleSuggestVideo(id, url, title) {
+    console.log(id, url, title);
   }
 
   handlePlayVideo(id) {
@@ -29,9 +34,16 @@ class Browse extends React.Component {
   }
 
   renderLibrary() {
-    const { library } = this.props;
+    const { library, room, auth } = this.props;
+    var roomChief;
 
-    if (library.searchItems) {
+    room.sessions.map((session) => {
+      if (session.id == room.id) {
+        roomChief = session.chief;
+      }
+    });
+
+    if (library.searchItems && roomChief == auth.uid) {
       return library.searchItems.map((video) => {
         return (
           <div className="col-md-4 col-sm-6 col-xs-12" key={(video.id.videoId + new Date() + Math.random() * 100)} style={{height: '300px', overflow: 'hidden'}}>
@@ -49,6 +61,17 @@ class Browse extends React.Component {
           </div>
         );
       });
+    } else if (library.searchItems) {
+      <div className="col-md-4 col-sm-6 col-xs-12" key={(video.id.videoId + new Date() + Math.random() * 100)} style={{height: '300px', overflow: 'hidden'}}>
+        <h4>{video.snippet.title}</h4>
+        <ul className="list-inline">
+          <li><button className="btn" onClick={() => {
+            this.handleSuggestVideo(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title);
+          }}>Suggest</button></li>
+        </ul>
+
+        <img src={video.snippet.thumbnails.medium.url} />
+      </div>
     } else {
       return (
         <Library />

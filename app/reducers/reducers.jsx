@@ -58,6 +58,15 @@ export var sessionReducer = (state = {id: null, messages: [], sessions: []}, act
   };
 };
 
+export var navReducer = (state = 'van', action) => {
+  switch(action.type) {
+    case 'UPDATE_NAV':
+      return action.comp;
+    default:
+      return state;
+  };
+};
+
 export var videoLibraryReducer = (state = {queue: []}, action) => {
   switch(action.type) {
     case 'UPDATE_VIDEO_LIBRARY':

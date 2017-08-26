@@ -2,7 +2,7 @@ import React from 'react';
 import * as Redux from 'redux';
 import * as actions from 'app/actions/actions';
 import { connect } from 'react-redux';
-import { hashHistory, Link } from 'react-router';
+import { hashHistory } from 'react-router';
 
 import Search from 'app/components/Search';
 
@@ -12,6 +12,13 @@ class Nav extends React.Component {
 
     this.handleLogout = this.handleLogout.bind(this);
     this.renderRoom = this.renderRoom.bind(this);
+    this.handleNav = this.handleNav.bind(this);
+  }
+
+  handleNav(comp) {
+    const { dispatch } = this.props;
+
+    dispatch(actions.updateNav(comp));
   }
 
   handleLogout(e) {
@@ -22,9 +29,9 @@ class Nav extends React.Component {
   renderRoom() {
     const { room } = this.props;
 
-    if (room) {
+    if (room.id) {
       return (
-        <li><Link to="studio"><span style={{color: 'red'}}>Live</span> {this.props.room.name ? this.props.room.name : ''}</Link></li>
+        <li><a onClick={() => this.handleNav('studio')} style={{cursor: 'pointer'}}><span style={{color: 'red', cursor: 'pointer'}}>Live</span> {this.props.room.name ? this.props.room.name : ''}</a></li>
       );
     } else {
 
@@ -33,7 +40,7 @@ class Nav extends React.Component {
 
   render() {
     return (
-      <nav className="navbar navbar-default">
+      <nav className="navbar navbar-default navbar-fixed-top ">
   <div className="container-fluid">
     <div className="navbar-header">
       <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -42,12 +49,12 @@ class Nav extends React.Component {
         <span className="icon-bar"></span>
         <span className="icon-bar"></span>
       </button>
-      <a className="navbar-brand" href="#">Caravan</a>
+      <a style={{cursor: 'pointer'}} className="navbar-brand" onClick={() => this.handleNav('van')}>Caravan</a>
     </div>
     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul className="nav navbar-nav">
-        <li><Link to="browse">Browse</Link></li>
-        <li><a href="#">Library</a></li>
+        <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('van')}>Broadcasts</a></li>
+        <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('browse')}>Videos</a></li>
       </ul>
         <Search />
       <ul className="nav navbar-nav navbar-right">

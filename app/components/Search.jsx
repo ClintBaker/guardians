@@ -2,7 +2,6 @@ import React from 'react';
 import * as Redux from 'redux';
 import * as actions from 'app/actions/actions';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
 
 class Search extends React.Component {
   constructor(props) {
@@ -26,7 +25,7 @@ class Search extends React.Component {
     this.props.dispatch(actions.getVideoSearch(search));
 
     this.setState({ search: '' });
-    hashHistory.push('browse');
+    this.props.dispatch(actions.updateNav('browse'));
   }
 
   render() {

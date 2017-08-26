@@ -46,11 +46,12 @@ class Van extends React.Component {
   render() {
 
     return (
-      <div className="container">
-        <h1>Caravan</h1>
+      <div>
+        <h1>Browse sessions</h1>
         <div>
+          <h5>Create a session</h5>
           <input placeholder="sesh name" value={this.state.seshName} onChange={this.handleChangeSetName} />
-          <button className="btn btn-primary" onClick={this.handleSpinLive} >Spin Live</button>
+          <button className="btn btn-primary" onClick={this.handleSpinLive} >Create</button>
         </div>
 
         <div>

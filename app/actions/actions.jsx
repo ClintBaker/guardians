@@ -80,6 +80,13 @@ export var updateSeshQue = (queue) => {
   };
 };
 
+export var updateNav = (comp) => {
+  return {
+    type: 'UPDATE_NAV',
+    comp
+  }
+}
+
 // Join sesh *****
 
 export var joinSesh = (seshId) => {
@@ -98,7 +105,7 @@ export var joinSesh = (seshId) => {
 
 
     dispatch(updateMyColor(color));
-    hashHistory.push('studio');
+    dispatch(updateNav('studio'));
     firebaseRef.child('sessions/' + seshId + '/messages').on('child_added', (snapshot) => {
       var message = snapshot.val();
       dispatch(handleNewMessage(message));
@@ -133,7 +140,7 @@ export var createSesh = (seshName, uid) => {
       ]
     }).then(() => {
       dispatch(updateSession(newSeshName, seshName));
-      hashHistory.push('studio');
+      dispatch(updateNav('studio'));
       firebaseRef.child(`sessions/${newSeshName}/messages`).on('child_added', (snapshot) => {
         var message = snapshot.val();
         dispatch(handleNewMessage(message));
