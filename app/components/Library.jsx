@@ -44,11 +44,13 @@ class Library extends React.Component {
     var buttonFunc2;
     var button2Hidden;
 
-    room.sessions.map((session) => {
-      if (session.id == room.id) {
-        roomChief = session.chief;
-      }
-    });
+    if (room.sessions) {
+      room.sessions.map((session) => {
+        if (session.id == room.id) {
+          roomChief = session.chief;
+        }
+      });
+    }
 
     if (auth.uid == roomChief) {
       isChief = true;

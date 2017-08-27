@@ -91,6 +91,7 @@ export var updateNav = (comp) => {
 
 export var joinSesh = (seshId) => {
   return (dispatch, getState) => {
+      dispatch(startLeaveSession());
 
       var letters = '0123456789ABCDEF';
       var color = '#';
@@ -127,6 +128,7 @@ export var joinSesh = (seshId) => {
 
 export var createSesh = (seshName, uid) => {
   return (dispatch, getState) => {
+    dispatch(startLeaveSession());
     var newSeshName = Date.now() + uid;
     firebaseRef.child('sessions/' + newSeshName).set({
       chief: uid,
@@ -141,10 +143,7 @@ export var createSesh = (seshName, uid) => {
     }).then(() => {
       dispatch(updateSession(newSeshName, seshName));
       dispatch(updateNav('studio'));
-      firebaseRef.child(`sessions/${newSeshName}/messages`).on('child_added', (snapshot) => {
-        var message = snapshot.val();
-        dispatch(handleNewMessage(message));
-      });
+      dispatch(joinSesh(newSeshName));
     }).catch((e) => {
       console.log('unable to create sesh');
     });
@@ -204,6 +203,21 @@ export var handleNewMessage = (messageObj) => {
   return {
     type: 'HANDLE_NEW_MESSAGE',
     messageObj
+  };
+};
+
+export var startLeaveSession = () => {
+  return (dispatch, getState) => {
+    var state = getState();
+    var seshId = state.room.id;
+
+    if (seshId) {
+      firebaseRef.child('sessions/' + seshId + '/videoId').off();
+      firebaseRef.child('sessions/' + seshId + '/messages').off();
+      firebaseRef.child('sessions/' + seshId + '/queue').off();
+    }
+
+    dispatch(leaveSession());
   };
 };
 

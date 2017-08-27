@@ -21,6 +21,8 @@ export var videoReducer = (state = 'WslamjoE770', action) => {
   switch(action.type) {
     case 'CHANGE_VIDEO_ID':
       return action.id;
+    case 'LEAVE_SESSION':
+      return 'WslamjoE770';
     default:
       return state;
   };
@@ -49,9 +51,10 @@ export var sessionReducer = (state = {id: null, messages: [], sessions: []}, act
       };
     case 'LEAVE_SESSION':
       return {
+        ...state,
         id: null,
         messages: [],
-        sessions: []
+        name: ''
       };
     default:
       return state;

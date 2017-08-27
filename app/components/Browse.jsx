@@ -37,11 +37,13 @@ class Browse extends React.Component {
     const { library, room, auth } = this.props;
     var roomChief;
 
-    room.sessions.map((session) => {
-      if (session.id == room.id) {
-        roomChief = session.chief;
-      }
-    });
+    if (room.sessions) {
+      room.sessions.map((session) => {
+        if (session.id == room.id) {
+          roomChief = session.chief;
+        }
+      });  
+    }
 
     if (library.searchItems && roomChief == auth.uid) {
       return library.searchItems.map((video) => {
