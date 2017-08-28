@@ -11,15 +11,20 @@ class Chat extends React.Component {
 
     this.handleChangeMessage = this.handleChangeMessage.bind(this);
     this.handleSendMessage = this.handleSendMessage.bind(this);
+    this.scrollToBottom = this.scrollToBottom.bind(this);
   }
 
   componentDidUpdate() {
     this.scrollToBottom();
   }
 
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
   scrollToBottom() {
     const node = ReactDOM.findDOMNode(this.messagesEnd);
-    node.scrollTop = node.scrollHeight;
+    node.scrollIntoView({ behavior: 'smooth' });
   }
 
 
@@ -50,24 +55,26 @@ class Chat extends React.Component {
   render() {
 
     const chatStyle1 = {
-      visibility: 'hidden'
+      visibility: 'hidden',
+      float: 'right'
     };
 
-    var chatStyle = {};
+    var chatStyle = {float: 'right'};
 
     if (!this.props.room.id) {
       chatStyle = chatStyle1;
     }
 
     return (
-      <div className="col-sm-4" style={{overflowY: 'scroll', height: '70vh', marginTop: '20px'}}>
-        <div ref={(el) => { this.messagesEnd = el; }}>
-          {this.renderMessages()}
-          <form onSubmit={this.handleSendMessage} style={chatStyle} className="form-group">
-            <input value={this.state.message} onChange={this.handleChangeMessage} className="form-control" style={{height: '40px'}} />
-            <button type="submit" className="btn btn-success" style={{float: 'right'}}>Send</button>
-          </form>
+      <div>
+        <div className="col-sm-4" style={{overflowY: 'scroll', height: '70vh', marginTop: '20px'}}>
+            {this.renderMessages()}
+            <div style={{float: 'left', clear: 'both'}} ref={(el) => { this.messagesEnd = el; }}></div>
         </div>
+        <form onSubmit={this.handleSendMessage} style={chatStyle} className="form-group">
+          <input value={this.state.message} onChange={this.handleChangeMessage} className="form-control" style={{height: '40px', width: '100%'}} />
+          <button type="submit" className="btn btn-success">Send</button>
+        </form>
       </div>
     );
   }
