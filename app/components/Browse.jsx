@@ -37,7 +37,7 @@ class Browse extends React.Component {
     const { library, room, auth } = this.props;
     var roomChief = this.props.room.isChief;
 
-    if (library.searchItems && roomChief == auth.uid) {
+    if (library.searchItems && roomChief) {
       return library.searchItems.map((video) => {
         return (
           <div className="col-md-4 col-sm-6 col-xs-12" key={(video.id.videoId + new Date() + Math.random() * 100)} style={{height: '300px', overflow: 'hidden'}}>

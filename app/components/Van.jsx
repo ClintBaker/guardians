@@ -25,7 +25,7 @@ class Van extends React.Component {
     var { dispatch, auth } = this.props;
     var seshName = this.state.seshName;
 
-    dispatch(actions.createSesh(seshName, auth.uid));
+    dispatch(actions.createSesh(seshName, auth.uid, auth.userName));
   }
 
   handleJoinRoom(id) {

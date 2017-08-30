@@ -5,6 +5,12 @@ export var authReducer = (state = {}, action) => {
         ...state,
         uid: action.uid
       };
+    case 'AFTER_LOGIN':
+      return {
+        ...state,
+        email: action.email,
+        userName: action.userName
+      };
     case 'SIGN_OUT':
       return {};
     case 'UPDATE_MY_COLOR':

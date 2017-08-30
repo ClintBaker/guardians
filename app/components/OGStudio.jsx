@@ -6,7 +6,7 @@ import { hashHistory } from 'react-router';
 import YouTube from 'react-youtube';
 import ReactDOM from 'react-dom';
 
-import firebase from 'app/firebase';
+import firebase, { firebaseRef } from 'app/firebase';
 import Browse from 'app/components/Browse';
 import Queue from 'app/components/Queue';
 import Search from 'app/components/Search';
@@ -22,6 +22,11 @@ class OGStudio extends React.Component {
 
     this.renderMain = this.renderMain.bind(this);
     this.renderChat = this.renderChat.bind(this);
+
+    firebaseRef.child(`users/${this.props.auth.uid}`).once('value').then((snapshot) => {
+      var userInfo = snapshot.val();
+      this.props.dispatch(actions.afterLogin(userInfo.email, userInfo.userName));
+    });
   }
 
   renderChat() {

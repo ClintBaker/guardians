@@ -27,6 +27,14 @@ export var startSignOut = () => {
 export var createUser = (password, email, userName) => {
   return (dispatch, getState) => {
     firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
+      firebaseRef.child(`users/${user.uid}`).set({"userName": userName, "email": email}).then(() => {
+
+      }).catch((e) => {
+        console.log(e);
+      });
+
+      firebaseRef.child(`userReference/emails`).push(email);
+      firebaseRef.child(`userReference/userNames`).push(userName);
       dispatch(login(user.uid));
       hashHistory.push('van');
     }).catch((e) => {
@@ -37,10 +45,12 @@ export var createUser = (password, email, userName) => {
 
 // Login *****
 
-export var login = (uid) => {
+export var login = (uid, email, userName) => {
   return {
     type: 'LOGIN',
-    uid
+    uid,
+    email,
+    userName
   };
 };
 
@@ -55,6 +65,15 @@ export var startLogin = (email, password) => {
   };
 };
 
+// After login *****
+
+export var afterLogin = (email, userName) => {
+  return {
+    type: 'AFTER_LOGIN',
+    email,
+    userName
+  };
+};
 
 // Submit new video id *****
 
@@ -157,12 +176,13 @@ export var joinSesh = (seshId) => {
 
 // Create sesh *****
 
-export var createSesh = (seshName, uid) => {
+export var createSesh = (seshName, uid, userName) => {
   return (dispatch, getState) => {
     dispatch(startLeaveSession());
     var newSeshName = Date.now() + uid;
     firebaseRef.child('sessions/' + newSeshName).set({
       chief: uid,
+      chiefName: userName,
       name: seshName,
       messages: [
         {

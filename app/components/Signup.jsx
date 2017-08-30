@@ -36,7 +36,11 @@ class Signup extends React.Component {
     const { password, passwordConfirm, email, userName } = this.state;
 
     if (password == passwordConfirm) {
-      this.props.dispatch(actions.createUser(password, email, userName));
+      if (email.length > 1 && userName.length > 1) {
+        this.props.dispatch(actions.createUser(password, email, userName));
+      } else {
+        alert('must fill in each field');
+      }
     } else {
       alert('passwords must match');
     }
