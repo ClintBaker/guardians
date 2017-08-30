@@ -22,6 +22,19 @@ export var startSignOut = () => {
   };
 };
 
+//Create user *****
+
+export var createUser = (password, email, userName) => {
+  return (dispatch, getState) => {
+    firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
+      dispatch(login(user.uid));
+      hashHistory.push('van');
+    }).catch((e) => {
+      console.log(e);
+    });
+  };
+};
+
 // Login *****
 
 export var login = (uid) => {

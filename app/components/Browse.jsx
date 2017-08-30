@@ -35,15 +35,7 @@ class Browse extends React.Component {
 
   renderLibrary() {
     const { library, room, auth } = this.props;
-    var roomChief;
-
-    if (room.sessions) {
-      room.sessions.map((session) => {
-        if (session.id == room.id) {
-          roomChief = session.chief;
-        }
-      });
-    }
+    var roomChief = this.props.room.isChief;
 
     if (library.searchItems && roomChief == auth.uid) {
       return library.searchItems.map((video) => {
@@ -64,16 +56,20 @@ class Browse extends React.Component {
         );
       });
     } else if (library.searchItems) {
-      <div className="col-md-4 col-sm-6 col-xs-12" key={(video.id.videoId + new Date() + Math.random() * 100)} style={{height: '300px', overflow: 'hidden'}}>
-        <h4>{video.snippet.title}</h4>
-        <ul className="list-inline">
-          <li><button className="btn" onClick={() => {
-            this.handleSuggestVideo(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title);
-          }}>Suggest</button></li>
-        </ul>
+      return library.searchItems.map((video) => {
+        return (
+          <div className="col-md-4 col-sm-6 col-xs-12" key={(video.id.videoId + new Date() + Math.random() * 100)} style={{height: '300px', overflow: 'hidden'}}>
+            <h4>{video.snippet.title}</h4>
+            <ul className="list-inline">
+              <li><button className="btn" onClick={() => {
+                this.handleSuggestVideo(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title);
+              }}>Suggest</button></li>
+            </ul>
 
-        <img src={video.snippet.thumbnails.medium.url} />
-      </div>
+            <img src={video.snippet.thumbnails.medium.url} />
+          </div>
+        );
+      });
     } else {
       return (
         <Library />

@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Redux from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
+import { hashHistory, Link } from 'react-router';
 
 import * as actions from 'app/actions/actions';
 import firebase from 'app/firebase/';
@@ -96,8 +96,9 @@ class Login extends React.Component {
               value={this.state.passwordConfirm} onChange={this.handlePasswordConfirmInput} />
           </div>
         </form>
-        <button className="btn btn-primary" onClick={this.onSignup}>Sign up</button>
-        <button className="btn btn-success" onClick={this.onLogin}>Log in</button>
+        <button className="btn" onClick={this.onLogin}>Log in</button>
+        <p>Need an account?</p>
+        <Link to="signup" className="btn btn-primary">Sign up</Link>
       </div>
     );
   }
