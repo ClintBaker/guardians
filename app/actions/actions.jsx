@@ -7,8 +7,8 @@ import axios from 'axios';
 export var signOut = () => {
   return {
     type: 'SIGN_OUT'
-  }
-}
+  };
+};
 
 export var startSignOut = () => {
   return (dispatch, getState) => {

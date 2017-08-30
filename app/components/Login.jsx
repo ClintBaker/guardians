@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { hashHistory, Link } from 'react-router';
 
 import * as actions from 'app/actions/actions';
-import firebase from 'app/firebase/';
+import firebase, { firebaseRef } from 'app/firebase/';
 
 class Login extends React.Component {
   constructor(props) {

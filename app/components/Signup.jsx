@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { hashHistory, Link } from 'react-router';
 
 import * as actions from 'app/actions/actions';
-import firebase from 'app/firebase/';
+import firebase, { firebaseRef } from 'app/firebase/';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -13,7 +13,8 @@ class Signup extends React.Component {
       password: '',
       passwordConfirm: '',
       email: '',
-      userName: ''
+      userName: '',
+      userNames: []
     }
 
     this.onSignup = this.onSignup.bind(this);
@@ -22,18 +23,25 @@ class Signup extends React.Component {
     this.handlePasswordConfirmInput = this.handlePasswordConfirmInput.bind(this);
     this.handleUserNameInput = this.handleUserNameInput.bind(this);
 
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.props.dispatch(actions.login(user.uid));
-        hashHistory.push('van');
-      } else {
+    firebaseRef.child(`userReference/userNames`).once('value').then((snapshot) => {
+      var userNamesObj = snapshot.val();
+      var userNameArray = [];
+      Object.keys(userNamesObj).map((id) => {
+        var lowerCasedName = userNamesObj[id].toLowerCase();
+        userNameArray.push(lowerCasedName);
+      });
 
-      }
+      this.setState({ userNames: userNameArray });
     });
+
   }
 
   onSignup() {
-    const { password, passwordConfirm, email, userName } = this.state;
+    const { password, passwordConfirm, email, userName, userNames } = this.state;
+
+    if (userNames.includes(userName.toLowerCase())) {
+      return alert('user name must be unique');
+    }
 
     if (password == passwordConfirm) {
       if (email.length > 1 && userName.length > 1) {

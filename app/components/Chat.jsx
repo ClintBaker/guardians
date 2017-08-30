@@ -37,7 +37,7 @@ class Chat extends React.Component {
   handleSendMessage(e) {
     e.preventDefault();
 
-    this.props.dispatch(actions.sendMessage(this.state.message, this.props.auth.uid, this.props.room.id));
+    this.props.dispatch(actions.sendMessage(this.state.message, this.props.auth.userName, this.props.room.id));
     this.setState({ message: '' });
   }
 
