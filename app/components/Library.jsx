@@ -11,24 +11,17 @@ class Library extends React.Component {
     this.props.dispatch(actions.getPopularVideos());
   }
 
-  handleSubmitVideoId(e) {
-    e.preventDefault();
-
-    this.props.dispatch(actions.submitVideoid(this.state.videoId));
-    this.setState({videoId: ''});
-  }
-
-  handleButton1(id, isChief) {
+  handleButton1(id, isChief, title, description) {
     const { dispatch } = this.props;
 
     if (isChief) {
-      dispatch(actions.submitVideoid(id));
+      dispatch(actions.submitVideoid(id, title));
     } else if (!isChief) {
       // dispatch(actions.suggestVideoId(id));
     }
   }
 
-  submitButton2(id, url, title) {
+  submitButton2(id, url, title, description) {
     const { dispatch } = this.props;
 
     dispatch(actions.queueVideoId(id, url, title));
@@ -74,8 +67,8 @@ class Library extends React.Component {
               <img style={{width: 'auto', height: video.snippet.thumbnails.default.height}} src={video.snippet.thumbnails.default.url} />
               <p>{video.snippet.description}</p>
               <span><small>{video.snippet.publishedAt}</small></span>
-              <button onClick={() => this.handleButton1(video.id.videoId, isChief)} className="btn">{buttonText}</button>
-              <button onClick={() => this.submitButton2(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title)} className="btn" style={{visibility: button2Hidden}}>{buttonText2 ? buttonText2 : 'none'}</button>
+              <button onClick={() => this.handleButton1(video.id.videoId, isChief, video.snippet.title, video.snippet.description)} className="btn">{buttonText}</button>
+              <button onClick={() => this.submitButton2(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title, video.snippet.description)} className="btn" style={{visibility: button2Hidden}}>{buttonText2 ? buttonText2 : 'none'}</button>
             </div>
           );
         return (

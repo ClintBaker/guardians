@@ -28,6 +28,23 @@ export var videoReducer = (state = 'WslamjoE770', action) => {
   };
 };
 
+export var vidReducer = (state = {id: '', title: ''}, action) => {
+  switch(action.type) {
+    case 'CHANGE_VIDEO_ID':
+      return {
+        ...state,
+        id: action.id
+      };
+    case 'SUBMIT_VIDEO_INFO':
+      return {
+        ...state,
+        title: action.title
+      };
+    default:
+      return state;
+  };
+};
+
 export var sessionReducer = (state = {id: null, messages: [], sessions: []}, action) => {
   switch(action.type) {
     case 'UPDATE_SESSION':

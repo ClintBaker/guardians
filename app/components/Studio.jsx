@@ -16,27 +16,10 @@ import Chat from 'app/components/Chat';
 class Studio extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { videoId: '' };
-
-    this.handleChangeVideoId = this.handleChangeVideoId.bind(this);
-    this.hanldeSubmitVideoId = this.handleSubmitVideoId.bind(this);
 
     if (firebase.auth().currentUser) {
       console.log(firebase.auth().currentUser);
     }
-  }
-
-  handleSubmitVideoId(e) {
-    e.preventDefault();
-
-    this.props.dispatch(actions.submitVideoid(this.state.videoId));
-    this.setState({videoId: ''});
-  }
-
-  handleChangeVideoId(e) {
-    var id = e.target.value;
-
-    this.setState({videoId: id});
   }
 
   render() {
@@ -44,11 +27,8 @@ class Studio extends React.Component {
     return (
       <div className="container-fluid">
         <div className="col-sm-8">
+          <h2>{this.props.video && this.props.video.title ? this.props.video.title : ''}</h2>
           <Queue />
-          <form onSubmit={this.hanldeSubmitVideoId}>
-            <input placeholder="Vide ID" value={this.state.videoId} onChange={this.handleChangeVideoId} />
-            <button type="submit" className="btn btn-primary">Change video</button>
-          </form>
         </div>
       </div>
     );
@@ -60,6 +40,7 @@ export default connect(
     return {
       auth: state.auth,
       videoId: state.videoId,
+      video: state.video,
       room: state.room,
       library: state.library
     }

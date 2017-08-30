@@ -42,7 +42,7 @@ class Van extends React.Component {
 
       return (
         <ul style={{listStyle: 'none'}}>{sessions}</ul>
-      );  
+      );
     }
   }
 

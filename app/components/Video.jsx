@@ -8,9 +8,11 @@ import YouTube from 'react-youtube';
 class Video extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {title: ''};
 
     this.handleVideoEnd = this.handleVideoEnd.bind(this);
     this.handleNav = this.handleNav.bind(this);
+    this._onReady = this._onReady.bind(this);
   }
 
   handleNav(comp) {
@@ -29,7 +31,7 @@ class Video extends React.Component {
   }
 
   _onReady(e) {
-
+    
   }
 
   render() {
@@ -99,6 +101,7 @@ export default connect(
     return {
       auth: state.auth,
       videoId: state.videoId,
+      video: state.video,
       room: state.room,
       library: state.library,
       nav: state.nav

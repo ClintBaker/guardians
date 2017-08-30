@@ -45,10 +45,10 @@ export var startLogin = (email, password) => {
 
 // Submit new video id *****
 
-export var submitVideoid = (id) => {
+export var submitVideoid = (id, title) => {
   return (dispatch, getState) => {
     var state = getState();
-    firebaseRef.child(`sessions/${state.room.id}`).update({"videoId": id});
+    firebaseRef.child(`sessions/${state.room.id}`).update({"videoId": id, "videoTitle": title});
   };
 };
 
@@ -112,7 +112,7 @@ export var joinSesh = (seshId) => {
       if (message.time > now) {
         dispatch(handleNewMessage(message));
       } else {
-         
+
       }
     });
 
@@ -124,6 +124,11 @@ export var joinSesh = (seshId) => {
     firebaseRef.child(`sessions/${seshId}/queue`).on('child_added', (snapshot) => {
       var queue = snapshot.val();
       dispatch(updateSeshQue(queue));
+    });
+
+    firebaseRef.child(`sessions/${seshId}/videoTitle`).on('value', (snapshot) => {
+      var title = snapshot.val();
+      dispatch(submitVideoInfo(title));
     });
   };
 };
@@ -326,5 +331,14 @@ export var updateSearch = (searchItems) => {
   return {
     type: 'UPDATE_SEARCH',
     searchItems
+  };
+};
+
+//Submit video info *****
+
+export var submitVideoInfo = (title) => {
+  return {
+    type: 'SUBMIT_VIDEO_INFO',
+    title
   };
 };

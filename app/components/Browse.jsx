@@ -21,13 +21,13 @@ class Browse extends React.Component {
     console.log(id, url, title);
   }
 
-  handlePlayVideo(id) {
+  handlePlayVideo(id, title, description) {
     const { dispatch } = this.props;
 
-    dispatch(actions.submitVideoid(id));
+    dispatch(actions.submitVideoid(id, title));
   }
 
-  handleAddToQueue(id, title, url) {
+  handleAddToQueue(id, title, description, url) {
     const { dispatch } = this.props;
 
     dispatch(actions.queueVideoId(id, url, title));
@@ -42,7 +42,7 @@ class Browse extends React.Component {
         if (session.id == room.id) {
           roomChief = session.chief;
         }
-      });  
+      });
     }
 
     if (library.searchItems && roomChief == auth.uid) {
@@ -52,10 +52,10 @@ class Browse extends React.Component {
             <h4>{video.snippet.title}</h4>
             <ul className="list-inline">
               <li><button className="btn" onClick={() => {
-                this.handlePlayVideo(video.id.videoId);
+                this.handlePlayVideo(video.id.videoId, video.snippet.title, video.snippet.description);
               }}>Play</button></li>
               <li><button className="btn" onClick={() => {
-                this.handleAddToQueue(video.id.videoId, video.snippet.title, video.snippet.thumbnails.default.url);
+                this.handleAddToQueue(video.id.videoId, video.snippet.title, video.snippet.description, video.snippet.thumbnails.default.url);
               }}>Queue</button></li>
             </ul>
 
