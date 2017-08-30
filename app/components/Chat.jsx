@@ -65,12 +65,12 @@ class Chat extends React.Component {
     }
 
     return (
-      <div className="col-sm-4" style={{position: 'fixed', left: '70%', 'overflow-y': 'scroll', height: '85vh'}}>
+      <div className="col-sm-4" style={{position: 'fixed', left: '70%', overflowY: 'scroll', height: '78%', backgroundColor: '#eaeaea', width: '29%'}}>
         <div style={{width: '80%'}}>
             {this.renderMessages()}
             <div style={{float: 'left', clear: 'both'}} ref={(el) => { this.messagesEnd = el; }}></div>
         </div>
-        <div>
+        <div style={{position: 'fixed', top: '85%', width: '25%'}}>
           <form onSubmit={this.handleSendMessage} style={chatStyle} className="form-group">
             <input value={this.state.message} onChange={this.handleChangeMessage} className="form-control" />
             <button type="submit" className="btn btn-success">Send</button>
