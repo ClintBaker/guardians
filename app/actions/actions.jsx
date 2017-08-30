@@ -98,9 +98,18 @@ export var joinSesh = (seshId) => {
         color += letters[Math.floor(Math.random() * 16)];
       }
 
-      firebaseRef.child(`sessions/${seshId}/name`).once('value').then((snapshot) => {
-        var seshName = snapshot.val();
+      firebaseRef.child(`sessions/${seshId}`).once('value').then((snapshot) => {
+        var snap = snapshot.val();
+        var seshName = snap.name;
         dispatch(updateSession(seshId, seshName));
+
+        var state = getState();
+        if (state.auth.uid === snap.chief) {
+          dispatch(setChiefStatus(true));
+        } else {
+          dispatch(setChiefStatus(false));
+        }
+
       });
 
 
@@ -340,5 +349,14 @@ export var submitVideoInfo = (title) => {
   return {
     type: 'SUBMIT_VIDEO_INFO',
     title
+  };
+};
+
+//Set chief status *****
+
+export var setChiefStatus = (bool) => {
+  return {
+    type: 'SET_CHIEF_STATUS',
+    bool
   };
 };

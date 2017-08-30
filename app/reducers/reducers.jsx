@@ -73,6 +73,11 @@ export var sessionReducer = (state = {id: null, messages: [], sessions: []}, act
         messages: [],
         name: ''
       };
+    case 'SET_CHIEF_STATUS':
+      return {
+        ...state,
+        isChief: action.bool
+      };
     default:
       return state;
   };

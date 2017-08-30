@@ -9,10 +9,26 @@ class Queue extends React.Component {
     super(props);
 
     this.renderQueue = this.renderQueue.bind(this);
+    this.handlePlayQueue = this.handlePlayQueue.bind(this);
   }
 
   handleRemoveFromQueue(id) {
     this.props.dispatch(actions.removeFromQueue(id));
+  }
+
+  handlePlayQueue(id, title) {
+    this.props.dispatch(actions.submitVideoid(id, title));
+  }
+
+  renderButtons(video) {
+    if (this.props.room.isChief === true) {
+      return (
+        <div>
+          <button className="btn btn-sm btn-success" onClick={() => this.handlePlayQueue(video.id, video.title)}><i className="fa fa-play"></i></button>
+          <button className="btn btn-sm btn-danger" onClick={() => this.handleRemoveFromQueue(video.id)}>X</button>
+        </div>
+      );
+    }
   }
 
   renderQueue() {
@@ -25,10 +41,10 @@ class Queue extends React.Component {
         number++
         return (
           <div className="col-md-3 col-sm-6" key={(video.id + Date.now() * 100 + Math.random())}>
-            <button className="btn btn-small btn-danger" onClick={() => this.handleRemoveFromQueue(video.id)}>X</button>
-            <div className="row">
-              <h5><span style={{fontWeight: 'bold'}}>{number} </span>{video.title}</h5>
+            <div style={{fontWeight: 'bold', height: '225px', overflow: 'scroll'}}>
+              <h5><span>{number} </span>{video.title}</h5>
               <img src={video.url} />
+              {this.renderButtons(video)}
             </div>
           </div>
         );
