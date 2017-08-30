@@ -34,7 +34,6 @@ export var login = (uid) => {
 export var startLogin = (email, password) => {
   return (dispatch, getState) => {
     firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
-      console.log(user);
       dispatch(login(user.uid));
       hashHistory.push('van');
     }).catch((e) => {
@@ -107,9 +106,14 @@ export var joinSesh = (seshId) => {
 
     dispatch(updateMyColor(color));
     dispatch(updateNav('studio'));
+    var now = Date.now();
     firebaseRef.child('sessions/' + seshId + '/messages').on('child_added', (snapshot) => {
       var message = snapshot.val();
-      dispatch(handleNewMessage(message));
+      if (message.time > now) {
+        dispatch(handleNewMessage(message));
+      } else {
+         
+      }
     });
 
     firebaseRef.child('sessions/' + seshId + '/videoId').on('value', (snapshot) => {

@@ -42,12 +42,14 @@ class Studio extends React.Component {
   render() {
 
     return (
-      <div className="container">
-        <Queue />
-        <form onSubmit={this.hanldeSubmitVideoId}>
-          <input placeholder="Vide ID" value={this.state.videoId} onChange={this.handleChangeVideoId} />
-          <button type="submit" className="btn btn-primary">Change video</button>
-        </form>
+      <div className="container-fluid">
+        <div className="col-sm-8">
+          <Queue />
+          <form onSubmit={this.hanldeSubmitVideoId}>
+            <input placeholder="Vide ID" value={this.state.videoId} onChange={this.handleChangeVideoId} />
+            <button type="submit" className="btn btn-primary">Change video</button>
+          </form>
+        </div>
       </div>
     );
   }
