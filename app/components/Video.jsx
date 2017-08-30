@@ -25,13 +25,13 @@ class Video extends React.Component {
     const { library, dispatch } = this.props;
 
     if (library.queue.length > 0) {
-      dispatch(actions.submitVideoid(library.queue[0].id));
+      dispatch(actions.submitVideoid(library.queue[0].id, library.queue[0].title));
       dispatch(actions.removeFromQueue(library.queue[0].id));
     }
   }
 
   _onReady(e) {
-    
+
   }
 
   render() {
