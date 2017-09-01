@@ -400,7 +400,7 @@ export var fireLazer = () => {
     dispatch(lazer('true'));
     setTimeout(() => {
       dispatch(lazer('untrue'));
-    }, 375);
+    }, 275);
   };
 };
 
@@ -408,5 +408,17 @@ export var lazer = (bool) => {
   return {
     type: 'LAZER',
     bool
+  };
+};
+
+export var fullTimeLazer = () => {
+  return (dispatch, getState) => {
+    var state = getState();
+
+    if (state.lazer == 'true') {
+      dispatch(lazer('not true'))
+    } else {
+      dispatch(lazer('true'))
+    }
   };
 };

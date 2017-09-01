@@ -78,6 +78,8 @@ class Browse extends React.Component {
   }
 
   render() {
+    var { lazer } = this.props;
+    var pimpStyle;
 
     return (
       <div>
@@ -98,7 +100,8 @@ export default connect(
       auth: state.auth,
       videoId: state.videoId,
       room: state.room,
-      library: state.library
+      library: state.library,
+      lazer: state.lazer
     }
   }
 )(Browse);

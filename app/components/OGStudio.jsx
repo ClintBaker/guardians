@@ -76,7 +76,9 @@ class OGStudio extends React.Component {
 
     return (
       <div>
-        {this.renderLazer()}
+        <div>
+          {this.renderLazer()}
+        </div>
         <Nav />
         <div className="container-fluid" style={{marginTop: '55px'}}>
           <div className="row">

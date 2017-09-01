@@ -80,7 +80,7 @@ class Video extends React.Component {
       styleAB = styleB;
     }
 
-    if (this.props.video.id.length > 0) {
+    if (this.props.video.id && this.props.video.id.length > 0) {
       return (
         <div style={style}>
           <div style={styleAB}>
