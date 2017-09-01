@@ -70,7 +70,7 @@ class Chat extends React.Component {
           <h2>{this.props.room && this.props.room.name ? this.props.room.name : ''} |
             <span style={{color: 'blue', fontSize: '18px'}}> {this.props.room.chiefName ? this.props.room.chiefName : 'Test'}</span></h2>
         </div>
-        <div style={{position: 'fixed', left: '70%', overflowY: 'scroll', height: '78%', width: '29%', top: '12%', backgroundColor: '#f8f8f8'}}>
+        <div style={{position: 'fixed', left: '70%', overflowY: 'scroll', height: '78%', width: '29%', top: '13%', backgroundColor: '#f8f8f8'}}>
           <div style={{width: '80%'}}>
               {this.renderMessages()}
               <div style={{float: 'left', clear: 'both'}} ref={(el) => { this.messagesEnd = el; }}></div>

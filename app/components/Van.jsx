@@ -51,13 +51,13 @@ class Van extends React.Component {
         }
 
         return (
-          <div key={session.name + (Math.random() * 100)} className="col-sm-4 col-xs-12 col-m-3 col-lg-3">
+          <div key={session.name + (Math.random() * 100)} className="col-sm-6 col-xs-12 col-m-4 col-lg-3">
             <img className="thumbnail" src={url} />
             <ul className="list-inline">
               <li><a style={{fontWeight: 'bold', cursor: 'pointer', fontSize: '17px', fontWeight: '75'}}
                 onClick={this.handleJoinRoom.bind(this, session.id)}>{session.name}</a></li>
                 <br />
-              <li><small>Hosted by:</small> {session.chiefName} | </li>
+              <li><small>Hosted by:</small> {session.chiefName}</li>
               <br />
               <li><span className="fa fa-volume-up"></span> {session.videoTitle ? session.videoTitle : 'none'}</li>
             </ul>

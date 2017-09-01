@@ -400,7 +400,7 @@ export var fireLazer = () => {
     dispatch(lazer('true'));
     setTimeout(() => {
       dispatch(lazer('untrue'));
-    }, 275);
+    }, 200);
   };
 };
 
