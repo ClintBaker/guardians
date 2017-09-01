@@ -13,6 +13,7 @@ class Video extends React.Component {
     this.handleVideoEnd = this.handleVideoEnd.bind(this);
     this.handleNav = this.handleNav.bind(this);
     this._onReady = this._onReady.bind(this);
+    this.renderVideo = this.renderVideo.bind(this);
   }
 
   handleNav(comp) {
@@ -34,7 +35,8 @@ class Video extends React.Component {
 
   }
 
-  render() {
+  renderVideo() {
+
     const opts = {
       height: '100%',
       width: '100%',
@@ -78,19 +80,27 @@ class Video extends React.Component {
       styleAB = styleB;
     }
 
+    if (this.props.video.id.length > 0) {
+      return (
+        <div style={style}>
+          <div style={styleAB}>
+            <a onClick={() => this.handleNav('studio')} style={{cursor: 'pointer'}}><span style={{color: 'red', cursor: 'pointer'}}>Live</span> {this.props.room.name ? this.props.room.name : ''}</a>
+          </div>
+          <YouTube
+            videoId={this.props.video.id}
+            opts={opts}
+            onReady={this._onReady}
+            onEnd={this.handleVideoEnd}
+          />
+        </div>
+      );  
+    }
+  }
+
+  render() {
     return (
             <div className="col-sm-8">
-              <div style={style}>
-                <div style={styleAB}>
-                  <a onClick={() => this.handleNav('studio')} style={{cursor: 'pointer'}}><span style={{color: 'red', cursor: 'pointer'}}>Live</span> {this.props.room.name ? this.props.room.name : ''}</a>
-                </div>
-                <YouTube
-                  videoId={this.props.videoId}
-                  opts={opts}
-                  onReady={this._onReady}
-                  onEnd={this.handleVideoEnd}
-                />
-              </div>
+              {this.renderVideo()}
             </div>
     );
   }

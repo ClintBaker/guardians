@@ -9,78 +9,72 @@ class Library extends React.Component {
     super(props);
 
     this.props.dispatch(actions.getPopularVideos());
+    this.handleSuggestVideo = this.handleSuggestVideo.bind(this);
+    this.handlePlayVideo = this.handlePlayVideo.bind(this);
+    this.handleAddToQueue = this.handleAddToQueue.bind(this);
   }
 
-  handleButton1(id, isChief, title, description) {
+  handlePlayVideo(id, description, title) {
     const { dispatch } = this.props;
 
-    if (isChief) {
-      dispatch(actions.submitVideoid(id, title));
-    } else if (!isChief) {
-      // dispatch(actions.suggestVideoId(id));
-    }
+    dispatch(actions.submitVideoid(id, title));
   }
 
-  submitButton2(id, url, title, description) {
+  handleAddToQueue(id, description, title, url) {
     const { dispatch } = this.props;
 
     dispatch(actions.queueVideoId(id, url, title));
   }
 
+  handleSuggestVideo(id, url, title) {
+    console.log(title);
+  }
+
   renderVideos() {
     const { library, room, auth } = this.props;
-    var roomChief;
-    var isChief;
-    var buttonText;
-    var buttonFunc;
-    var buttonText2;
-    var buttonFunc2;
-    var button2Hidden;
 
-    if (room.sessions) {
-      room.sessions.map((session) => {
-        if (session.id == room.id) {
-          roomChief = session.chief;
-        }
-      });
-    }
+    const isChief = room.isChief;
 
-    if (auth.uid == roomChief) {
-      isChief = true;
-      buttonText = 'Play Video';
-      buttonText2 = 'Queue Video';
-      button2Hidden = false;
-    } else {
-      isChief = false;
-      buttonText = 'Suggest',
-      button2Hidden = true;
-    }
+    if(library.videos && isChief) {
+        return library.videos.map((video) => {
+          return (
+            <div className="col-md-4 col-sm-6 col-xs-12" key={(video.id.videoId + new Date() + Math.random() * 100)} style={{height: '300px', overflow: 'hidden'}}>
+              <h4>{video.snippet.title}</h4>
+              <ul className="list-inline">
+                <li><button className="btn" onClick={() => {
+                  this.handlePlayVideo(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title);
+                }}>Play</button></li>
+                <li><button className="btn" onClick={() => {
+                  this.handleAddToQueue(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title, video.snippet.thumbnails.default.url);
+                }}>Queue</button></li>
+              </ul>
 
-    if(library.videos != undefined) {
-
-        const videos = library.videos.map((video) =>
-            <div ref={video.id.videoId} key={video.id.videoId} className="col-sm-6 col-md-4"
-              style={{height: '300px', border: '1px black solid', backgroundColor: '#eaeaea', overflow: 'scroll'}}
-            >
-
-              <h3>{video.snippet.title}</h3>
-              <img style={{width: 'auto', height: video.snippet.thumbnails.default.height}} src={video.snippet.thumbnails.default.url} />
-              <p>{video.snippet.description}</p>
-              <span><small>{video.snippet.publishedAt}</small></span>
-              <button onClick={() => this.handleButton1(video.id.videoId, isChief, video.snippet.title, video.snippet.description)} className="btn">{buttonText}</button>
-              <button onClick={() => this.submitButton2(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title, video.snippet.description)} className="btn" style={{visibility: button2Hidden}}>{buttonText2 ? buttonText2 : 'none'}</button>
+              <img src={video.snippet.thumbnails.medium.url} />
             </div>
           );
+        });
+    } else if (library.videos) {
+      return library.videos.map((video) => {
         return (
-          <div>{videos}</div>
+          <div className="col-md-4 col-sm-6 col-xs-12" key={(video.id.videoId + new Date() + Math.random() * 100)} style={{height: '300px', overflow: 'hidden'}}>
+            <h4>{video.snippet.title}</h4>
+            <ul className="list-inline">
+              <li><button className="btn" onClick={() => {
+                this.handleSuggestVideo(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title);
+              }}>Suggest</button></li>
+            </ul>
+
+            <img src={video.snippet.thumbnails.medium.url} />
+          </div>
         );
+      });
     }
   }
 
   render() {
     return (
       <div>
-        <h2>Search for content</h2>
+        <h2>Popular Videos</h2>
         {this.renderVideos()}
       </div>
     );

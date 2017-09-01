@@ -132,8 +132,9 @@ export var joinSesh = (seshId) => {
 
       firebaseRef.child(`sessions/${seshId}`).once('value').then((snapshot) => {
         var snap = snapshot.val();
+        console.log(snap);
         var seshName = snap.name;
-        dispatch(updateSession(seshId, seshName));
+        dispatch(updateSession(seshId, seshName, snap.chiefName));
 
         var state = getState();
         if (state.auth.uid === snap.chief) {
@@ -192,7 +193,7 @@ export var createSesh = (seshName, uid, userName) => {
         }
       ]
     }).then(() => {
-      dispatch(updateSession(newSeshName, seshName));
+      dispatch(updateSession(newSeshName, seshName, userName));
       dispatch(updateNav('studio'));
       dispatch(joinSesh(newSeshName));
     }).catch((e) => {
@@ -203,11 +204,12 @@ export var createSesh = (seshName, uid, userName) => {
 
 // Update session *****
 
-export var updateSession = (seshId, seshName) => {
+export var updateSession = (seshId, seshName, chiefName) => {
   return {
     type: 'UPDATE_SESSION',
     seshId,
-    seshName
+    seshName,
+    chiefName
   };
 };
 
@@ -285,18 +287,17 @@ export var leaveSession = () => {
 export var getPopularVideos = () => {
   return (dispatch, getState) => {
 
-    axios.get('https://www.googleapis.com/youtube/v3/search', {
+    axios.get('https://www.googleapis.com/youtube/v3/videos', {
       params: {
         part: 'snippet',
-        type: 'video',
+        chart: 'mostPopular',
         maxResults: 50,
-        order: 'relevance',
-        q: 'music',
         key: 'AIzaSyBuoT0p85hUEIYMNr_6rdZKxgnpFGmn5Co'
       }
     }).then((res) => {
       dispatch(updateVideoLibrary(res.data.items));
     }).catch((e) => {
+      console.log('error on the get');
       console.log(e);
     });
   };

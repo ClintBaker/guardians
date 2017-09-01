@@ -66,15 +66,16 @@ class Chat extends React.Component {
 
     return (
       <div className="col-sm-4">
-        <div style={{position: 'fixed', top: '6%', width: '29%', textAlign: 'center' }}>
-          <h2>{this.props.room && this.props.room.name ? this.props.room.name : ''}</h2>
+        <div style={{position: 'fixed', left: '70%', top: '5%', width: '29%', textAlign: 'center', backgroundColor: '#eaeaea' }}>
+          <h2>{this.props.room && this.props.room.name ? this.props.room.name : ''} |
+            <span style={{color: 'blue', fontSize: '18px'}}> {this.props.room.chiefName ? this.props.room.chiefName : 'Test'}</span></h2>
         </div>
-        <div style={{position: 'fixed', left: '70%', overflowY: 'scroll', height: '78%', width: '29%', top: '12%', backgroundColor: '#eaeaea'}}>
+        <div style={{position: 'fixed', left: '70%', overflowY: 'scroll', height: '78%', width: '29%', top: '12%', backgroundColor: '#f8f8f8'}}>
           <div style={{width: '80%'}}>
               {this.renderMessages()}
               <div style={{float: 'left', clear: 'both'}} ref={(el) => { this.messagesEnd = el; }}></div>
           </div>
-          <div style={{position: 'fixed', top: '92%', width: '29%'}}>
+          <div style={{position: 'fixed', left: '70%', top: '90%', width: '29%', backgroundColor: '#eaeaea'}}>
             <form onSubmit={this.handleSendMessage} style={chatStyle} className="form-group">
               <input value={this.state.message} onChange={this.handleChangeMessage} className="form-control" />
               <button type="submit" className="btn btn-success">Send</button>

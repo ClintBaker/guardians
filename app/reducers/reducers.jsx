@@ -23,7 +23,7 @@ export var authReducer = (state = {}, action) => {
   };
 };
 
-export var videoReducer = (state = 'WslamjoE770', action) => {
+export var videoReducer = (state = '', action) => {
   switch(action.type) {
     case 'CHANGE_VIDEO_ID':
       return action.id;
@@ -57,7 +57,8 @@ export var sessionReducer = (state = {id: null, messages: [], sessions: []}, act
       return {
         ...state,
         id: action.seshId,
-        name: action.seshName
+        name: action.seshName,
+        chiefName: action.chiefName
       };
     case 'HANDLE_NEW_MESSAGE':
       return {
