@@ -84,7 +84,7 @@ class Video extends React.Component {
       return (
         <div style={style}>
           <div style={styleAB}>
-            <a onClick={() => this.handleNav('studio')} style={{cursor: 'pointer'}}><span style={{color: 'red', cursor: 'pointer'}}>Live</span> {this.props.room.name ? this.props.room.name : ''}</a>
+            <a onClick={() => this.handleNav('studio')} style={{cursor: 'pointer'}}><span className="fa fa-volume-up" style={{color: 'red', cursor: 'pointer'}}></span> {this.props.room.name ? this.props.room.name : ''}</a>
           </div>
           <YouTube
             videoId={this.props.video.id}
@@ -93,7 +93,7 @@ class Video extends React.Component {
             onEnd={this.handleVideoEnd}
           />
         </div>
-      );  
+      );
     }
   }
 

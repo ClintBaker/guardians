@@ -22,6 +22,7 @@ class OGStudio extends React.Component {
 
     this.renderMain = this.renderMain.bind(this);
     this.renderChat = this.renderChat.bind(this);
+    this.renderLazer = this.renderLazer.bind(this);
 
     firebaseRef.child(`users/${this.props.auth.uid}`).once('value').then((snapshot) => {
       var userInfo = snapshot.val();
@@ -56,10 +57,26 @@ class OGStudio extends React.Component {
 
   }
 
+  renderLazer() {
+    const lazerStyle = {
+      position: 'fixed',
+      height: '100%',
+      width: '100%',
+      backgroundColor: 'rgba(255, 0, 255, 0.4)'
+    };
+
+    if (this.props.lazer === 'true') {
+      return (
+        <div style={lazerStyle}></div>
+      );
+    }
+  }
+
   render() {
 
     return (
       <div>
+        {this.renderLazer()}
         <Nav />
         <div className="container-fluid" style={{marginTop: '55px'}}>
           <div className="row">
@@ -80,7 +97,8 @@ export default connect(
       videoId: state.videoId,
       room: state.room,
       library: state.library,
-      nav: state.nav
+      nav: state.nav,
+      lazer: state.lazer
     }
   }
 )(OGStudio);

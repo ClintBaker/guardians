@@ -132,7 +132,6 @@ export var joinSesh = (seshId) => {
 
       firebaseRef.child(`sessions/${seshId}`).once('value').then((snapshot) => {
         var snap = snapshot.val();
-        console.log(snap);
         var seshName = snap.name;
         dispatch(updateSession(seshId, seshName, snap.chiefName));
 
@@ -314,6 +313,7 @@ export var updateVideoLibrary = (items) => {
 
 export var queueVideoId = (id, url, title) => {
   return (dispatch, getState) => {
+    dispatch(fireLazer());
     var state = getState();
     firebaseRef.child(`sessions/${state.room.id}/queue/${id}`).set({
       id,
@@ -391,6 +391,22 @@ export var submitVideoInfo = (title) => {
 export var setChiefStatus = (bool) => {
   return {
     type: 'SET_CHIEF_STATUS',
+    bool
+  };
+};
+
+export var fireLazer = () => {
+  return (dispatch, getState) => {
+    dispatch(lazer('true'));
+    setTimeout(() => {
+      dispatch(lazer('untrue'));
+    }, 375);
+  };
+};
+
+export var lazer = (bool) => {
+  return {
+    type: 'LAZER',
     bool
   };
 };

@@ -135,3 +135,12 @@ export var videoLibraryReducer = (state = {queue: []}, action) => {
       return state;
   };
 };
+
+export var lazerReducer = (state = 'false', action) => {
+  switch(action.type) {
+    case 'LAZER':
+      return action.bool;
+    default:
+      return state;
+  };
+};

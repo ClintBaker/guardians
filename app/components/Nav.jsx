@@ -31,7 +31,7 @@ class Nav extends React.Component {
 
     if (room.id) {
       return (
-        <li><a onClick={() => this.handleNav('studio')} style={{cursor: 'pointer'}}><span style={{color: 'red', cursor: 'pointer'}}>Live</span> {this.props.room.name ? this.props.room.name : ''}</a></li>
+        <li><a onClick={() => this.handleNav('studio')} style={{cursor: 'pointer'}}><span className="fa fa-volume-up" style={{color: 'red', cursor: 'pointer'}}></span> {this.props.room.name ? this.props.room.name : ''}</a></li>
       );
     } else {
 

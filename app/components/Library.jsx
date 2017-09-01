@@ -14,13 +14,13 @@ class Library extends React.Component {
     this.handleAddToQueue = this.handleAddToQueue.bind(this);
   }
 
-  handlePlayVideo(id, description, title) {
+  handlePlayVideo(id, url, title) {
     const { dispatch } = this.props;
 
     dispatch(actions.submitVideoid(id, title));
   }
 
-  handleAddToQueue(id, description, title, url) {
+  handleAddToQueue(id, url, title) {
     const { dispatch } = this.props;
 
     dispatch(actions.queueVideoId(id, url, title));
@@ -37,15 +37,18 @@ class Library extends React.Component {
 
     if(library.videos && isChief) {
         return library.videos.map((video) => {
+          const videoId = video.id;
+          const vidUrl = video.snippet.thumbnails.default.url;
+          const vidTitle = video.snippet.title;
           return (
             <div className="col-md-4 col-sm-6 col-xs-12" key={(video.id.videoId + new Date() + Math.random() * 100)} style={{height: '300px', overflow: 'hidden'}}>
               <h4>{video.snippet.title}</h4>
               <ul className="list-inline">
                 <li><button className="btn" onClick={() => {
-                  this.handlePlayVideo(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title);
+                  this.handlePlayVideo(video.id, video.snippet.thumbnails.default.url, video.snippet.title);
                 }}>Play</button></li>
                 <li><button className="btn" onClick={() => {
-                  this.handleAddToQueue(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title, video.snippet.thumbnails.default.url);
+                  this.handleAddToQueue(videoId, vidUrl, vidTitle);
                 }}>Queue</button></li>
               </ul>
 
