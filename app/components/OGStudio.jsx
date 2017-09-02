@@ -15,6 +15,7 @@ import Nav from 'app/components/Nav';
 import Studio from 'app/components/Studio';
 import Video from 'app/components/Video';
 import Chat from 'app/components/Chat';
+import MyLibrary from 'app/components/MyLibrary';
 
 class OGStudio extends React.Component {
   constructor(props) {
@@ -80,6 +81,7 @@ class OGStudio extends React.Component {
           {this.renderLazer()}
         </div>
         <Nav />
+        <MyLibrary />
         <div className="container-fluid" style={{marginTop: '55px'}}>
           <div className="row">
             <Video />

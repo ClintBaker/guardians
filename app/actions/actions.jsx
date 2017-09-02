@@ -439,3 +439,40 @@ export var startPlayVideoAndCreateStation = (id, url, title) => {
     }, 250);
   };
 };
+
+// startAddToLibrary *****
+
+export var startAddToLibrary = (id, url, title) => {
+  return (dispatch, getState) => {
+    var state = getState();
+
+    firebaseRef.child(`users/${state.auth.uid}/library`).push({
+      id,
+      url,
+      title
+    }).then(() => {
+      dispatch(fireLazer());
+    }).catch((e) => {
+      console.log(e);
+    });
+  }
+};
+
+export var getMyLibrary = () => {
+  return (dispatch, getState) => {
+    var state = getState();
+
+    firebaseRef.child(`users/${state.auth.uid}/library`).on('child_added', (snapshot) => {
+      var newLibraryItemObj = snapshot.val();
+      console.log(newLibraryItemObj)
+      dispatch(updateMyLibrary(newLibraryItemObj));
+    });
+  };
+};
+
+export var updateMyLibrary = (obj) => {
+  return {
+    type: 'UPDATE_MY_LIBRARY',
+    obj
+  };
+};

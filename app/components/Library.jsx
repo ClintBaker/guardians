@@ -13,6 +13,13 @@ class Library extends React.Component {
     this.handlePlayVideo = this.handlePlayVideo.bind(this);
     this.handlePlayVideoNew = this.handlePlayVideoNew.bind(this);
     this.handleAddToQueue = this.handleAddToQueue.bind(this);
+    this.handleAddToLibrary = this.handleAddToLibrary.bind(this);
+  }
+
+  handleAddToLibrary(id, url, title) {
+    const { dispatch } = this.props;
+
+    dispatch(actions.startAddToLibrary(id, url, title))
   }
 
   handlePlayVideoNew(id, url, title) {
@@ -60,6 +67,14 @@ class Library extends React.Component {
                 <li><button className="btn" onClick={() => {
                   this.handleAddToQueue(video.id.videoId, vidUrl, vidTitle);
                 }}>Queue</button></li>
+
+                <li>
+                  <a onClick={
+                    () => {
+                      this.handleAddToLibrary(video.id.videoId, video.snippet.thumbnails.medium.url, vidTitle)
+                    }
+                  }><span className="fa fa-plus"></span></a>
+                </li>
               </ul>
 
               <img src={video.snippet.thumbnails.medium.url} />
@@ -82,6 +97,13 @@ class Library extends React.Component {
                     this.handlePlayVideoNew(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title);
                   }
                 }><span className="fa fa-play"></span></a>
+              </li>
+              <li>
+                <a onClick={
+                  () => {
+                    this.handleAddToLibrary(video.id.videoId, video.snippet.thumbnails.medium.url, video.snippet.title)
+                  }
+                }><span className="fa fa-plus"></span></a>
               </li>
             </ul>
 

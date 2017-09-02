@@ -15,6 +15,13 @@ class Browse extends React.Component {
     this.handleAddToQueue = this.handleAddToQueue.bind(this);
     this.handlePlayVideo = this.handlePlayVideo.bind(this);
     this.handleSuggestVideo = this.handleSuggestVideo.bind(this);
+    this.handleAddToLibrary = this.handleAddToLibrary.bind(this);
+  }
+
+  handleAddToLibrary(id, url, title) {
+    const { dispatch } = this.props;
+
+    dispatch(actions.startAddToLibrary(id, url, title))
   }
 
   handleSuggestVideo(id, url, title) {
@@ -49,6 +56,13 @@ class Browse extends React.Component {
               <li><button className="btn" onClick={() => {
                 this.handleAddToQueue(video.id.videoId, video.snippet.title, video.snippet.description, video.snippet.thumbnails.default.url);
               }}>Queue</button></li>
+              <li>
+                <a onClick={
+                  () => {
+                    this.handleAddToLibrary(video.id.videoId, video.snippet.thumbnails.medium.url, video.snippet.title)
+                  }
+                }><span className="fa fa-plus"></span></a>
+              </li>
             </ul>
 
             <img src={video.snippet.thumbnails.medium.url} />
@@ -64,6 +78,13 @@ class Browse extends React.Component {
               <li><button className="btn" onClick={() => {
                 this.handleSuggestVideo(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title);
               }}>Suggest</button></li>
+              <li>
+                <a onClick={
+                  () => {
+                    this.handleAddToLibrary(video.id.videoId, video.snippet.thumbnails.medium.url, video.snippet.title)
+                  }
+                }><span className="fa fa-plus"></span></a>
+              </li>
             </ul>
 
             <img src={video.snippet.thumbnails.medium.url} />

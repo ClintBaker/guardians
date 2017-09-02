@@ -1,4 +1,4 @@
-export var authReducer = (state = {}, action) => {
+export var authReducer = (state = { myLibrary: [] }, action) => {
   switch(action.type) {
     case 'LOGIN':
       return {
@@ -18,6 +18,14 @@ export var authReducer = (state = {}, action) => {
         ...state,
         myColor: action.color
       }
+    case 'UPDATE_MY_LIBRARY':
+      return {
+        ...state,
+        myLibrary: [
+          ...state.myLibrary,
+          action.obj
+        ]
+      };
     default:
       return state;
   };
