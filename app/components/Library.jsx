@@ -11,7 +11,17 @@ class Library extends React.Component {
     this.props.dispatch(actions.getPopularVideos());
     this.handleSuggestVideo = this.handleSuggestVideo.bind(this);
     this.handlePlayVideo = this.handlePlayVideo.bind(this);
+    this.handlePlayVideoNew = this.handlePlayVideoNew.bind(this);
     this.handleAddToQueue = this.handleAddToQueue.bind(this);
+  }
+
+  handlePlayVideoNew(id, url, title) {
+    const { dispatch } = this.props;
+
+    var r = confirm('Are you sure you want to leave your current station, and create a new one?');
+    if (r) {
+      dispatch(actions.startPlayVideoAndCreateStation(id, url, title));
+    }
   }
 
   handlePlayVideo(id, url, title) {
@@ -66,6 +76,13 @@ class Library extends React.Component {
                 this.handleSuggestVideo(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title);
               }}>Suggest</button></li>
 
+              <li>
+                <a onClick={
+                  () => {
+                    this.handlePlayVideoNew(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title);
+                  }
+                }><span className="fa fa-play"></span></a>
+              </li>
             </ul>
 
             <img src={video.snippet.thumbnails.medium.url} />

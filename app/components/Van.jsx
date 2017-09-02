@@ -51,7 +51,7 @@ class Van extends React.Component {
         }
 
         return (
-          <div key={session.name + (Math.random() * 100)} className="col-sm-6 col-xs-12 col-m-4 col-lg-3">
+          <div style={{height: '275px'}} key={session.name + (Math.random() * 100)} className="col-sm-6 col-xs-12 col-m-4 col-lg-3">
             <img className="thumbnail" src={url} />
             <ul className="list-inline">
               <li><a style={{fontWeight: 'bold', cursor: 'pointer', fontSize: '17px', fontWeight: '75'}}
