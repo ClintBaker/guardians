@@ -286,17 +286,18 @@ export var leaveSession = () => {
 export var getPopularVideos = () => {
   return (dispatch, getState) => {
 
-    axios.get('https://www.googleapis.com/youtube/v3/videos', {
+    axios.get('https://www.googleapis.com/youtube/v3/search', {
       params: {
         part: 'snippet',
-        chart: 'mostPopular',
+        type: 'video',
         maxResults: 50,
+        order: 'relevance',
+        q: 'Griz',
         key: 'AIzaSyBuoT0p85hUEIYMNr_6rdZKxgnpFGmn5Co'
       }
     }).then((res) => {
       dispatch(updateVideoLibrary(res.data.items));
     }).catch((e) => {
-      console.log('error on the get');
       console.log(e);
     });
   };

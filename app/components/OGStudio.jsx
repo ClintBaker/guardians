@@ -87,6 +87,9 @@ class OGStudio extends React.Component {
           </div>
           {this.renderMain()}
         </div>
+        <footer style={{height: '400px', backgroundColor: '#f8f8f8', marginTop: '100px'}}>
+          <h3 align="center" style={{textAlign: 'center', paddingTop: '35px'}}>Caravan.fm</h3>
+        </footer>
       </div>
     );
   }
