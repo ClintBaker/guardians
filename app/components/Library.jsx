@@ -45,10 +45,10 @@ class Library extends React.Component {
               <h4>{video.snippet.title}</h4>
               <ul className="list-inline">
                 <li><button className="btn" onClick={() => {
-                  this.handlePlayVideo(video.id, video.snippet.thumbnails.default.url, video.snippet.title);
+                  this.handlePlayVideo(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title);
                 }}>Play</button></li>
                 <li><button className="btn" onClick={() => {
-                  this.handleAddToQueue(videoId, vidUrl, vidTitle);
+                  this.handleAddToQueue(video.id.videoId, vidUrl, vidTitle);
                 }}>Queue</button></li>
               </ul>
 
@@ -65,6 +65,7 @@ class Library extends React.Component {
               <li><button className="btn" onClick={() => {
                 this.handleSuggestVideo(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title);
               }}>Suggest</button></li>
+
             </ul>
 
             <img src={video.snippet.thumbnails.medium.url} />

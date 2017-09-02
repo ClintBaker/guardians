@@ -25,7 +25,7 @@ class Studio extends React.Component {
   render() {
 
     return (
-      <div className="container-fluid">
+      <div className="container-fluid" style={{marginTop: '30px'}}>
         <div className="col-sm-8">
           <h2>{this.props.video && this.props.video.title ? this.props.video.title : ''}</h2>
           <Queue />

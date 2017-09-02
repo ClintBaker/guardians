@@ -423,3 +423,19 @@ export var fullTimeLazer = () => {
     }
   };
 };
+
+// startPlayVideoAndCreateStation *****
+
+export var startPlayVideoAndCreateStation = (id, url, title) => {
+  return (dispatch, getState) => {
+    var state = getState();
+
+    var stationName = state.auth.userName + ' AutoBot ' + ((Math.random() * 1000).toString());
+
+    dispatch(createSesh(stationName, state.auth.uid, state.auth.userName));
+    setTimeout(() => {
+      dispatch(submitVideoid(id, title));
+      queueVideoId(id, url, title);
+    }, 250);
+  };
+};
