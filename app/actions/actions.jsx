@@ -462,11 +462,12 @@ export var getMyLibrary = () => {
   return (dispatch, getState) => {
     var state = getState();
 
-    firebaseRef.child(`users/${state.auth.uid}/library`).on('child_added', (snapshot) => {
-      var newLibraryItemObj = snapshot.val();
-      console.log(newLibraryItemObj)
-      dispatch(updateMyLibrary(newLibraryItemObj));
-    });
+    if (state.auth.myLibrary.length == 0) {
+      firebaseRef.child(`users/${state.auth.uid}/library`).on('child_added', (snapshot) => {
+        var newLibraryItemObj = snapshot.val();
+        dispatch(updateMyLibrary(newLibraryItemObj));
+      });
+    }
   };
 };
 

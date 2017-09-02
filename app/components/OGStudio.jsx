@@ -54,6 +54,10 @@ class OGStudio extends React.Component {
       return (
         <Browse />
       );
+    } else if (nav == 'myLibrary') {
+      return (
+        <MyLibrary />
+      );
     }
 
   }
@@ -81,7 +85,6 @@ class OGStudio extends React.Component {
           {this.renderLazer()}
         </div>
         <Nav />
-        <MyLibrary />
         <div className="container-fluid" style={{marginTop: '55px'}}>
           <div className="row">
             <Video />

@@ -71,7 +71,7 @@ class Library extends React.Component {
                 <li>
                   <a onClick={
                     () => {
-                      this.handleAddToLibrary(video.id.videoId, video.snippet.thumbnails.medium.url, vidTitle)
+                      this.handleAddToLibrary(video.id.videoId, video.snippet.thumbnails.default.url, vidTitle)
                     }
                   }><span className="fa fa-plus"></span></a>
                 </li>
@@ -101,7 +101,7 @@ class Library extends React.Component {
               <li>
                 <a onClick={
                   () => {
-                    this.handleAddToLibrary(video.id.videoId, video.snippet.thumbnails.medium.url, video.snippet.title)
+                    this.handleAddToLibrary(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title)
                   }
                 }><span className="fa fa-plus"></span></a>
               </li>

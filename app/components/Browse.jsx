@@ -16,6 +16,16 @@ class Browse extends React.Component {
     this.handlePlayVideo = this.handlePlayVideo.bind(this);
     this.handleSuggestVideo = this.handleSuggestVideo.bind(this);
     this.handleAddToLibrary = this.handleAddToLibrary.bind(this);
+    this.handlePlayVideoNew = this.handlePlayVideoNew.bind(this);
+  }
+
+  handlePlayVideoNew(id, url, title) {
+    const { dispatch } = this.props;
+
+    var r = confirm('Are you sure you want to leave your current station, and create a new one?');
+    if (r) {
+      dispatch(actions.startPlayVideoAndCreateStation(id, url, title));
+    }
   }
 
   handleAddToLibrary(id, url, title) {
@@ -59,7 +69,7 @@ class Browse extends React.Component {
               <li>
                 <a onClick={
                   () => {
-                    this.handleAddToLibrary(video.id.videoId, video.snippet.thumbnails.medium.url, video.snippet.title)
+                    this.handleAddToLibrary(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title)
                   }
                 }><span className="fa fa-plus"></span></a>
               </li>
@@ -78,10 +88,18 @@ class Browse extends React.Component {
               <li><button className="btn" onClick={() => {
                 this.handleSuggestVideo(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title);
               }}>Suggest</button></li>
+
               <li>
                 <a onClick={
                   () => {
-                    this.handleAddToLibrary(video.id.videoId, video.snippet.thumbnails.medium.url, video.snippet.title)
+                    this.handlePlayVideoNew(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title);
+                  }
+                }><span className="fa fa-play"></span></a>
+              </li>
+              <li>
+                <a onClick={
+                  () => {
+                    this.handleAddToLibrary(video.id.videoId, video.snippet.thumbnails.default.url, video.snippet.title)
                   }
                 }><span className="fa fa-plus"></span></a>
               </li>
