@@ -177,9 +177,9 @@ export var joinSesh = (seshId) => {
       dispatch(updateSeshQue(queue));
     });
 
-    firebaseRef.child(`sessions/${seshId}/videoTitle`).on('value', (snapshot) => {
-      var title = snapshot.val();
-      dispatch(submitVideoInfo(title));
+    firebaseRef.child(`sessions/${seshId}`).on('value', (snapshot) => {
+      var session = snapshot.val();
+      dispatch(submitVideoInfo(session.videoTitle, session.views));
     });
   };
 };
@@ -390,10 +390,11 @@ export var updateSearch = (searchItems) => {
 
 //Submit video info *****
 
-export var submitVideoInfo = (title) => {
+export var submitVideoInfo = (title, views) => {
   return {
     type: 'SUBMIT_VIDEO_INFO',
-    title
+    title,
+    views
   };
 };
 

@@ -18,16 +18,28 @@ class Studio extends React.Component {
     super(props);
 
     if (firebase.auth().currentUser) {
-      console.log(firebase.auth().currentUser);
+      // console.log(firebase.auth().currentUser);
     }
   }
 
   render() {
 
+    var viewsArray = [];
+    if (this.props.video.views) {
+      var viewsObj = this.props.video.views;
+      Object.keys(viewsObj).forEach((id) => {
+        viewsArray.push(id);
+      });
+    }
+    var views = viewsArray.length;
+
     return (
       <div className="container-fluid" style={{marginTop: '30px'}}>
         <div className="col-sm-8">
-          <h2>{this.props.video && this.props.video.title ? this.props.video.title : ''}</h2>
+          <ul className="list-inline">
+            <li><h2>{this.props.video && this.props.video.title ? this.props.video.title : ''}</h2></li>
+            <li style={{float: 'right'}}>Total Views: {this.props.video && this.props.video.views ? views : '0'}</li>
+          </ul>
           <Queue />
         </div>
       </div>

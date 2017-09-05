@@ -52,7 +52,8 @@ export var vidReducer = (state = {id: '', title: ''}, action) => {
     case 'SUBMIT_VIDEO_INFO':
       return {
         ...state,
-        title: action.title
+        title: action.title,
+        views: action.views
       };
     default:
       return state;
