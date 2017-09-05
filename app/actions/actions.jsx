@@ -118,6 +118,14 @@ export var updateNav = (comp) => {
   }
 }
 
+// updateSeshCount *****
+
+export var updateSeshCount = (seshId, userId) => {
+  return (dispatch, getState) => {
+    firebaseRef.child(`sessions/${seshId}/views/${userId}`).set({ user: userId });
+  };
+};
+
 // Join sesh *****
 
 export var joinSesh = (seshId) => {
@@ -133,7 +141,9 @@ export var joinSesh = (seshId) => {
       firebaseRef.child(`sessions/${seshId}`).once('value').then((snapshot) => {
         var snap = snapshot.val();
         var seshName = snap.name;
+        var state = getState();
         dispatch(updateSession(seshId, seshName, snap.chiefName));
+        dispatch(updateSeshCount(seshId, state.auth.uid))
 
         var state = getState();
         if (state.auth.uid === snap.chief) {
@@ -430,7 +440,7 @@ export var startPlayVideoAndCreateStation = (id, url, title) => {
   return (dispatch, getState) => {
     var state = getState();
 
-    var stationName = state.auth.userName + ' AutoBot ' + ((Math.random() * 1000).toString());
+    var stationName = state.auth.userName + '' + Date.now();
 
     dispatch(createSesh(stationName, state.auth.uid, state.auth.userName));
     setTimeout(() => {

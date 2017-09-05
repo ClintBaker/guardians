@@ -87,7 +87,7 @@ class MyLibrary extends React.Component {
                     this.handleSuggestVideo(id, title);
                   }}>Suggest</button></li>
                   <li><a onClick={() => {
-                    this.handlePlayVideoNew(id, title, url);
+                    this.handlePlayVideoNew(id, url, title);
                   }}><span className="fa fa-play"></span></a></li>
                 </ul>
 
