@@ -1,7 +1,7 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
-import { authReducer, videoReducer, vidReducer, sessionReducer, videoLibraryReducer, navReducer, lazerReducer } from 'reducers';
+import { authReducer, videoReducer, vidReducer, sessionReducer, videoLibraryReducer, navReducer, lazerReducer, usersReducer } from 'reducers';
 
 export var configure = (initialState = {}) => {
   var reducer = redux.combineReducers({
@@ -11,7 +11,8 @@ export var configure = (initialState = {}) => {
     room: sessionReducer,
     library: videoLibraryReducer,
     nav: navReducer,
-    lazer: lazerReducer
+    lazer: lazerReducer,
+    users: usersReducer
   });
 
 

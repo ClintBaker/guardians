@@ -56,6 +56,7 @@ class Nav extends React.Component {
         <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('van')}>Broadcasts</a></li>
         <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('browse')}>Videos</a></li>
         <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('myLibrary')}>My Library</a></li>
+        <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('users')}>Users</a></li>
       </ul>
         <Search />
       <ul className="nav navbar-nav navbar-right">

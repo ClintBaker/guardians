@@ -153,3 +153,12 @@ export var lazerReducer = (state = 'false', action) => {
       return state;
   };
 };
+
+export var usersReducer = (state = [], action) => {
+  switch(action.type) {
+    case 'UPDATE_USERS':
+      return action.users;
+    default:
+      return state;
+  };
+};

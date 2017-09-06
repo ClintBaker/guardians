@@ -488,3 +488,27 @@ export var updateMyLibrary = (obj) => {
     obj
   };
 };
+
+// getUsers *****
+
+export var getUsers = () => {
+  return (dispatch, getState) => {
+    firebaseRef.child(`users`).once('value').then((snapshot) => {
+      var usersArray = [];
+      var usersObj = snapshot.val();
+      Object.keys(usersObj).forEach((key) => {
+        usersArray.push(usersObj[key]);
+      });
+      dispatch(updateUsers(usersArray));
+    });
+  };
+};
+
+// updateUsers *****
+
+export var updateUsers = (users) => {
+  return {
+    type: 'UPDATE_USERS',
+    users
+  };
+};
