@@ -10,6 +10,14 @@ class Users extends React.Component {
 
     this.renderUsers = this.renderUsers.bind(this);
     this.handleUserProfile = this.handleUserProfile.bind(this);
+    this.handleAddFriend = this.handleAddFriend.bind(this);
+  }
+
+  handleAddFriend(user) {
+    const { dispatch } = this.props;
+
+    dispatch(actions.startAddFriend(user));
+    dispatch(actions.fireLazer());
   }
 
   handleUserProfile(userName, email, library) {
@@ -35,6 +43,9 @@ class Users extends React.Component {
           <h4><a onClick={() => {
             this.handleUserProfile(user.userName, user.email, user.library);
           }}>{user.userName}</a></h4>
+          <a onClick={() => {
+            this.handleAddFriend(user);
+          }}><span className="fa fa-plus"></span></a>
         </div>
       );
     })

@@ -27,7 +27,7 @@ export var startSignOut = () => {
 export var createUser = (password, email, userName) => {
   return (dispatch, getState) => {
     firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
-      firebaseRef.child(`users/${user.uid}`).set({"userName": userName, "email": email}).then(() => {
+      firebaseRef.child(`users/${user.uid}`).set({"userName": userName, "email": email, "uid": user.uid}).then(() => {
 
       }).catch((e) => {
         console.log(e);
@@ -521,5 +521,20 @@ export var updateUserProfile = (userName, email, library) => {
     userName,
     email,
     library
+  };
+};
+
+// startAddFriend *****
+
+export var startAddFriend = (user) => {
+  return (dispatch, getState) => {
+    var uid;
+    if (user.uid) {
+      uid = user.uid
+    } else {
+      uid = null;
+    }
+    var state = getState();
+    firebaseRef.child(`users/${state.auth.uid}/friends/${user.userName}`).set({ email: user.email, userName: user.userName, uid });
   };
 };
