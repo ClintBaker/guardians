@@ -12,12 +12,86 @@ class UserProfile extends React.Component {
 
     this.renderInfo = this.renderInfo.bind(this);
     this.backToUsers = this.backToUsers.bind(this);
-    this.handleLocalNav = this.handleLocalNav.bind(this);
     this.renderUserLibrary = this.renderUserLibrary.bind(this);
+    this.handleAddToLibrary = this.handleAddToLibrary.bind(this);
+    this.handlePlayVideo = this.handlePlayVideo.bind(this);
+    this.handleAddToQueue = this.handleAddToQueue.bind(this);
+    this.handlePlayVideoNew = this.handlePlayVideoNew.bind(this);
+    this.handleSuggestVideo = this.handleSuggestVideo.bind(this);
+    this.handleLocalNav = this.handleLocalNav.bind(this);
+    this.renderUserBroadcasts = this.renderUserBroadcasts.bind(this);
+  }
+
+  handleSuggestVideo(id, url, title) {
+    console.log(title);
+  }
+
+  handlePlayVideoNew(id, url, title) {
+    const { dispatch } = this.props;
+
+    var r = confirm('Are you sure you want to leave your current station, and create a new one?');
+    if (r) {
+      dispatch(actions.startPlayVideoAndCreateStation(id, url, title));
+    }
+  }
+
+  handleAddToLibrary(id, url, title) {
+    this.props.dispatch(actions.startAddToLibrary(id, url, title))
+  }
+
+  handleAddToQueue(id, url, title) {
+    this.props.dispatch(actions.queueVideoId(id, url, title));
+  }
+
+  handlePlayVideo(id, url, title) {
+    this.props.dispatch(actions.submitVideoid(id, title));
   }
 
   handleLocalNav(render) {
     this.setState({ render });
+  }
+
+  handleJoinRoom(id) {
+    this.props.dispatch(actions.joinSesh(id));
+  }
+
+  renderUserBroadcasts() {
+    var { room, userInfo } = this.props;
+    var sessionsArray = [];
+
+    if (room.sessions) {
+      room.sessions.map((session) => {
+        if (session.chiefName == userInfo.userName) {
+          sessionsArray.push(session);
+        }
+      });
+
+      return sessionsArray.map((session) => {
+        var url;
+        if (session.queue) {
+          var array = [];
+          Object.keys(session.queue).forEach((obj) => {
+            array.push(obj);
+          });
+          url = session.queue[array[0]].url;
+
+        } else {
+          url = 'https://i.ytimg.com/vi/Qrh7Pd6Ei9M/default.jpg';
+        }
+
+        return (
+          <div style={{height: '275px'}} key={session.name + (Math.random() * 100)} className="col-sm-6 col-xs-12 col-m-4 col-lg-3">
+            <img className="thumbnail" src={url} />
+            <ul className="list-inline">
+              <li><a style={{fontWeight: 'bold', cursor: 'pointer', fontSize: '17px', fontWeight: '75'}}
+                onClick={this.handleJoinRoom.bind(this, session.id)}>{session.name}</a></li>
+              <br />
+              <li><span className="fa fa-volume-up"></span> {session.videoTitle ? session.videoTitle : 'none'}</li>
+            </ul>
+          </div>
+        );
+      });
+    }
   }
 
   renderInfo() {
@@ -26,7 +100,8 @@ class UserProfile extends React.Component {
     if (render == 'broadcasts') {
       return (
         <div>
-
+          <h3 style={{textAlign: 'center', marginBottom: '40px'}}>Broadcasts</h3>
+          {this.renderUserBroadcasts()}
         </div>
       );
     } else if (render == 'friends') {
@@ -38,7 +113,7 @@ class UserProfile extends React.Component {
     } else if (render == 'library') {
       return (
         <div>
-          <h3>Library</h3>
+          <h3 style={{textAlign: 'center', marginBottom: '40px'}}>Library</h3>
           {this.renderUserLibrary()}
         </div>
       )
@@ -46,21 +121,71 @@ class UserProfile extends React.Component {
   }
 
   renderUserLibrary() {
-    const { userInfo } = this.props;
+    const { userInfo, room } = this.props;
 
     if (userInfo.library) {
       var libraryArray = [];
       Object.keys(userInfo.library).map((key) => {
         libraryArray.push(userInfo.library[key]);
       });
-      return libraryArray.map((obj) => {
-        return (
-          <div style={{height: '180px'}} className="col-xs-12 col-sm-6 col-md-4 col-lg-3" key={obj.id + (Math.random() * 100)}>
-            <img src={obj.url} />
-            <h5>{obj.title}</h5>
-          </div>
-        );
-      });
+      if (room.isChief) {
+        return libraryArray.map((obj) => {
+          return (
+            <div style={{height: '180px'}} className="col-xs-12 col-sm-6 col-md-4 col-lg-3" key={obj.id + (Math.random() * 100)}>
+              <img src={obj.url} />
+              <h5>{obj.title}</h5>
+              <ul className="list-inline">
+                <li><a onClick={() => {
+                  this.handlePlayVideo(obj.id, obj.url, obj.title);
+                }}><span className="fa fa-play"></span></a></li>
+                <li><a onClick={() => {
+                  this.handleAddToQueue(obj.id, obj.url, obj.title);
+                }}>Q</a></li>
+                <li><a onClick={() => {
+                  this.handleAddToLibrary(obj.id, obj.url, obj.title);
+                }}><span className="fa fa-plus"></span></a></li>
+              </ul>
+            </div>
+          );
+        });
+      } else if (room.id) {
+        return libraryArray.map((obj) => {
+          return (
+            <div style={{height: '180px'}} className="col-xs-12 col-sm-6 col-md-4 col-lg-3" key={obj.id + (Math.random() * 100)}>
+              <img src={obj.url} />
+              <h5>{obj.title}</h5>
+              <ul className="list-inline">
+                <li><a onClick={() => {
+                  this.handlePlayVideoNew(obj.id, obj.url, obj.title);
+                }}><span className="fa fa-play"></span></a></li>
+                <li><a onClick={() => {
+                  this.handleAddToLibrary(obj.id, obj.url, obj.title);
+                }}><span className="fa fa-plus"></span></a></li>
+                <li><a onClick={() => {
+                  this.handleSuggestVideo(obj.id, obj.url, obj.title);
+                }}>Suggest</a></li>
+              </ul>
+            </div>
+          );
+        });
+      } else {
+        return libraryArray.map((obj) => {
+          return (
+            <div style={{height: '180px'}} className="col-xs-12 col-sm-6 col-md-4 col-lg-3" key={obj.id + (Math.random() * 100)}>
+              <img src={obj.url} />
+              <h5>{obj.title}</h5>
+              <ul className="list-inline">
+                <li><a onClick={() => {
+                  this.handlePlayVideoNew(obj.id, obj.url, obj.title);
+                }}><span className="fa fa-play"></span></a></li>
+                <li><a onClick={() => {
+                  this.handleAddToLibrary(obj.id, obj.url, obj.title);
+                }}><span className="fa fa-plus"></span></a></li>
+              </ul>
+            </div>
+          );
+        });
+      }
     }
   }
 
