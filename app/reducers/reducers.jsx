@@ -162,3 +162,16 @@ export var usersReducer = (state = [], action) => {
       return state;
   };
 };
+
+export var userInfoReducer = (state = {}, action) => {
+  switch(action.type) {
+    case 'UPDATE_USER_PROFILE':
+      return {
+        userName: action.userName,
+        email: action.email,
+        library: action.library
+      };
+    default:
+      return state;
+  };
+};

@@ -512,3 +512,14 @@ export var updateUsers = (users) => {
     users
   };
 };
+
+// updateUserProfile *****
+
+export var updateUserProfile = (userName, email, library) => {
+  return {
+    type: 'UPDATE_USER_PROFILE',
+    userName,
+    email,
+    library
+  };
+};

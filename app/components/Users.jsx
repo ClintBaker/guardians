@@ -9,6 +9,14 @@ class Users extends React.Component {
     super(props);
 
     this.renderUsers = this.renderUsers.bind(this);
+    this.handleUserProfile = this.handleUserProfile.bind(this);
+  }
+
+  handleUserProfile(userName, email, library) {
+    const { dispatch } = this.props;
+
+    dispatch(actions.updateNav('userProfile'));
+    dispatch(actions.updateUserProfile(userName, email, library));
   }
 
   componentWillMount() {
@@ -24,7 +32,9 @@ class Users extends React.Component {
       return (
         <div className="col-xs-12 col-sm-4 col-md-3" key={user.email}>
           <img className="thumbnail" src="https://i.ytimg.com/vi/DVkkYlQNmbc/default.jpg" />
-          <h4>{user.userName}</h4>
+          <h4><a onClick={() => {
+            this.handleUserProfile(user.userName, user.email, user.library);
+          }}>{user.userName}</a></h4>
         </div>
       );
     })
