@@ -53,14 +53,14 @@ class Nav extends React.Component {
     </div>
     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul className="nav navbar-nav">
-        <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('van')}>Broadcasts</a></li>
+        <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('van')}>Stations</a></li>
         <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('browse')}>Videos</a></li>
-        <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('myLibrary')}>My Library</a></li>
-        <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('users')}>Users</a></li>
+        <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('users')}>People</a></li>
       </ul>
         <Search />
       <ul className="nav navbar-nav navbar-right">
         {this.renderRoom()}
+        <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('myLibrary')}>My Library</a></li>
         <li><a style={{cursor: 'pointer'}} onClick={this.handleLogout}>Logout</a></li>
       </ul>
     </div>

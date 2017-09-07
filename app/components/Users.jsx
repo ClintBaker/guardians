@@ -107,7 +107,7 @@ class Users extends React.Component {
         <ul className="list-inline" style={{textAlign: 'center'}}>
           <li><a onClick={() => {
             this.handleLocalNav('users');
-          }}>All Users</a></li>
+          }}>All Users | </a></li>
           <li><a onClick={() => {
             this.handleLocalNav('friends');
           }}>Friends</a></li>
