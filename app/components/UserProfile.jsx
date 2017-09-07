@@ -32,8 +32,19 @@ class UserProfile extends React.Component {
     dispatch(actions.fireLazer());
   }
 
-  handleUserProfile(userName, email, library) {
-    const { dispatch } = this.props;
+  handleUserProfile(userName, email) {
+    const { dispatch, users } = this.props;
+
+    var library;
+    var userOG;
+
+    users.map((user) => {
+      if (user.userName == userName) {
+        userOG = user;
+      }
+    });
+
+    library = userOG.library;
 
     dispatch(actions.updateNav('userProfile'));
     dispatch(actions.updateUserProfile(userName, email, library));
@@ -59,7 +70,7 @@ class UserProfile extends React.Component {
           <div className="col-xs-12 col-sm-4 col-md-3" key={user.email}>
             <img className="thumbnail" src="https://i.ytimg.com/vi/DVkkYlQNmbc/default.jpg" />
             <h4><a onClick={() => {
-              this.handleUserProfile(user.userName, user.email, user.library);
+              this.handleUserProfile(user.userName, user.email);
             }}>{user.userName}</a></h4>
             <a onClick={() => {
               this.handleAddFriend(user);
