@@ -20,6 +20,54 @@ class UserProfile extends React.Component {
     this.handleSuggestVideo = this.handleSuggestVideo.bind(this);
     this.handleLocalNav = this.handleLocalNav.bind(this);
     this.renderUserBroadcasts = this.renderUserBroadcasts.bind(this);
+    this.renderUserFriends = this.renderUserFriends.bind(this);
+    this.handleUserProfile = this.handleUserProfile.bind(this);
+    this.handleAddFriend = this.handleAddFriend.bind(this);
+  }
+
+  handleAddFriend(user) {
+    const { dispatch } = this.props;
+
+    dispatch(actions.startAddFriend(user));
+    dispatch(actions.fireLazer());
+  }
+
+  handleUserProfile(userName, email, library) {
+    const { dispatch } = this.props;
+
+    dispatch(actions.updateNav('userProfile'));
+    dispatch(actions.updateUserProfile(userName, email, library));
+  }
+
+  renderUserFriends() {
+    const { users, userInfo } = this.props;
+    var userOG;
+
+    users.map((user) => {
+      if (user.userName == userInfo.userName) {
+        userOG = user;
+      }
+    });
+
+    if (userOG && userOG.friends) {
+      var friendArr = [];
+      Object.keys(userOG.friends).map((key) => {
+        friendArr.push(userOG.friends[key]);
+      });
+      return friendArr.map((user) => {
+        return (
+          <div className="col-xs-12 col-sm-4 col-md-3" key={user.email}>
+            <img className="thumbnail" src="https://i.ytimg.com/vi/DVkkYlQNmbc/default.jpg" />
+            <h4><a onClick={() => {
+              this.handleUserProfile(user.userName, user.email, user.library);
+            }}>{user.userName}</a></h4>
+            <a onClick={() => {
+              this.handleAddFriend(user);
+            }}><span className="fa fa-plus"></span></a>
+          </div>
+        );
+      });
+    }
   }
 
   handleSuggestVideo(id, url, title) {
@@ -107,7 +155,8 @@ class UserProfile extends React.Component {
     } else if (render == 'friends') {
       return (
         <div>
-
+          <h3 style={{textAlign: 'center', marginBottom: '40px'}}>Friends</h3>
+          {this.renderUserFriends()}
         </div>
       );
     } else if (render == 'library') {

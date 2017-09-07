@@ -175,3 +175,12 @@ export var userInfoReducer = (state = {}, action) => {
       return state;
   };
 };
+
+export var friendsReducer = (state = [], action) => {
+  switch(action.type) {
+    case 'UPDATE_FRIENDS':
+      return action.friends;
+    default:
+      return state;
+  };
+};

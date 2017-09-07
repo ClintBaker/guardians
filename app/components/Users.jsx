@@ -7,10 +7,53 @@ import { hashHistory } from 'react-router';
 class Users extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { nav: '' };
 
     this.renderUsers = this.renderUsers.bind(this);
+    this.renderLocal = this.renderLocal.bind(this);
+    this.renderFriends = this.renderFriends.bind(this);
     this.handleUserProfile = this.handleUserProfile.bind(this);
     this.handleAddFriend = this.handleAddFriend.bind(this);
+    this.handleLocalNav = this.handleLocalNav.bind(this);
+  }
+
+  handleLocalNav(nav) {
+    this.setState({ nav });
+  }
+
+  renderFriends() {
+    const { friends } = this.props;
+
+    return friends.map((user) => {
+      return (
+        <div className="col-xs-12 col-sm-4 col-md-3" key={user.email}>
+          <img className="thumbnail" src="https://i.ytimg.com/vi/DVkkYlQNmbc/default.jpg" />
+          <h4><a onClick={() => {
+            this.handleUserProfile(user.userName, user.email, user.library);
+          }}>{user.userName}</a></h4>
+        </div>
+      );
+    });
+  }
+
+  renderLocal() {
+    const { nav } = this.state;
+
+    if (nav == 'friends') {
+      return (
+        <div>
+          <h3>Friends</h3>
+          {this.renderFriends()}
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <h3>Users</h3>
+          {this.renderUsers()}
+        </div>
+      );
+    }
   }
 
   handleAddFriend(user) {
@@ -31,6 +74,13 @@ class Users extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(actions.getUsers());
+    dispatch(actions.getFriends());
+  }
+
+  componentDidUpdate() {
+    const { dispatch } = this.props;
+
+    dispatch(actions.getFriends());
   }
 
   renderUsers() {
@@ -54,8 +104,15 @@ class Users extends React.Component {
   render() {
     return (
       <div>
-        <h3>Users</h3>
-        {this.renderUsers()}
+        <ul className="list-inline" style={{textAlign: 'center'}}>
+          <li><a onClick={() => {
+            this.handleLocalNav('users');
+          }}>All Users</a></li>
+          <li><a onClick={() => {
+            this.handleLocalNav('friends');
+          }}>Friends</a></li>
+        </ul>
+        {this.renderLocal()}
       </div>
     );
   }
@@ -69,7 +126,8 @@ export default connect(
       video: state.video,
       room: state.room,
       library: state.library,
-      users: state.users
+      users: state.users,
+      friends: state.friends
     }
   }
 )(Users);

@@ -2,7 +2,8 @@ import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
 import { authReducer, videoReducer, vidReducer, sessionReducer,
-  videoLibraryReducer, navReducer, lazerReducer, usersReducer, userInfoReducer
+  videoLibraryReducer, navReducer, lazerReducer, usersReducer,
+  userInfoReducer, friendsReducer
 } from 'reducers';
 
 export var configure = (initialState = {}) => {
@@ -15,7 +16,8 @@ export var configure = (initialState = {}) => {
     nav: navReducer,
     lazer: lazerReducer,
     users: usersReducer,
-    userInfo: userInfoReducer
+    userInfo: userInfoReducer,
+    friends: friendsReducer
   });
 
 

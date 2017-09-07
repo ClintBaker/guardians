@@ -538,3 +538,29 @@ export var startAddFriend = (user) => {
     firebaseRef.child(`users/${state.auth.uid}/friends/${user.userName}`).set({ email: user.email, userName: user.userName, uid });
   };
 };
+
+// getFriends *****
+
+export var getFriends = () => {
+  return (dispatch, getState) => {
+    var state = getState();
+
+    firebaseRef.child(`users/${state.auth.uid}/friends`).once('value').then((snapshot) => {
+      var friendsArray = [];
+      var friends = snapshot.val();
+      Object.keys(friends).map((key) => {
+        friendsArray.push(friends[key]);
+      });
+      dispatch(updateFriends(friendsArray));
+    });
+  };
+};
+
+// updateFriends *****
+
+export var updateFriends = (friends) => {
+  return {
+    type: 'UPDATE_FRIENDS',
+    friends
+  };
+};
