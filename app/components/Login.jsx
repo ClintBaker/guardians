@@ -81,8 +81,7 @@ class Login extends React.Component {
 
     return (
       <div className="container">
-        <h1>Caravan</h1>
-        <p>Internet together</p>
+        <h1>Caravan.fm</h1>
         <form>
           <div className="form-group">
             <input className="form-control" value={this.state.email} placeholder="email" value={this.state.email} onChange={this.handleEmailInput} />
@@ -97,7 +96,7 @@ class Login extends React.Component {
           </div>
         </form>
         <button className="btn" onClick={this.onLogin}>Log in</button>
-        <p>Need an account?</p>
+        <p style={{marginTop: '30px'}}>Need an account?</p>
         <Link to="signup" className="btn btn-primary">Sign up</Link>
       </div>
     );
