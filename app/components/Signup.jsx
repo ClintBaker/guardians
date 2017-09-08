@@ -83,8 +83,8 @@ class Signup extends React.Component {
 
     return (
       <div className="container">
-        <h1>Caravan</h1>
-        <p>Internet together</p>
+        <h1>Caravan.fm</h1>
+        <p>Signup page</p>
         <form>
           <div className="form-group">
             <input type="text" className="form-control" value={this.state.userName} placeholder="user name"
@@ -103,7 +103,7 @@ class Signup extends React.Component {
           </div>
         </form>
         <button className="btn btn-primary" onClick={this.onSignup}>Signup</button>
-        <p>Already have an account?</p>
+        <p style={{ marginTop: '30px' }}>Already have an account?</p>
         <button className="btn"><Link to="/">Log in</Link></button>
       </div>
     );
