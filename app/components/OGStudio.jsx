@@ -18,6 +18,7 @@ import Chat from 'app/components/Chat';
 import MyLibrary from 'app/components/MyLibrary';
 import Users from 'app/components/Users';
 import UserProfile from 'app/components/UserProfile';
+import Home from 'app/components/Home';
 
 class OGStudio extends React.Component {
   constructor(props) {
@@ -67,6 +68,10 @@ class OGStudio extends React.Component {
     } else if (nav == 'userProfile') {
       return (
         <UserProfile />
+      );
+    } else if (nav == 'home') {
+      return (
+        <Home />
       );
     }
 

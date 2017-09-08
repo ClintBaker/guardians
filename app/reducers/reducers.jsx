@@ -99,7 +99,7 @@ export var sessionReducer = (state = {id: null, messages: [], sessions: []}, act
   };
 };
 
-export var navReducer = (state = 'van', action) => {
+export var navReducer = (state = 'home', action) => {
   switch(action.type) {
     case 'UPDATE_NAV':
       return action.comp;
