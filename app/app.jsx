@@ -7,6 +7,10 @@ var actions = require('actions');
 var store = require('configureStore').configure();
 import router from 'app/router/index';
 
+//
+
+require('style!css!applicationStyles');
+
 ReactDOM.render(
   <Provider store={store}>
     {router}

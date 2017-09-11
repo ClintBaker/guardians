@@ -109,6 +109,13 @@ class OGStudio extends React.Component {
         </div>
         <footer style={{height: '400px', backgroundColor: '#f8f8f8', marginTop: '100px'}}>
           <h3 align="center" style={{textAlign: 'center', paddingTop: '35px'}}>Caravan.fm</h3>
+          <h5 align="center" style={{textAlign: 'center'}}>Powered by YouTube</h5>
+          {/* <p><a href="http://www.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1189772.htm">Images Designed by Freepik</a></p> */}
+
+
+          {/* Transport graphic by <a href="http://www.flaticon.com/authors/freepik">freepik</a> from <a href="http://www.flaticon.com/">Flaticon</a>
+           is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>.
+          Check out the new logo that I created on <a href="http://logomakr.com" title="Logo Maker">LogoMaker.com</a> https://logomakr.com/5sltnB5sltnB */}
         </footer>
       </div>
     );
@@ -129,6 +136,7 @@ export default connect(
 )(OGStudio);
 
 
+//rgba(255, 0, 255, 0.4)
 // https://www.youtube.com/watch?v=qs6FJZ9Qz7o
 // https://www.youtube.com/watch?v=tbxh2cWokLs
 // https://www.youtube.com/watch?v=CUQADT8-JP8

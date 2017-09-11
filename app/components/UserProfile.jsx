@@ -159,7 +159,7 @@ class UserProfile extends React.Component {
     if (render == 'broadcasts') {
       return (
         <div>
-          <h3 style={{textAlign: 'center', marginBottom: '40px'}}>Broadcasts</h3>
+          <h3 style={{textAlign: 'center', marginBottom: '40px'}}>Stations</h3>
           {this.renderUserBroadcasts()}
         </div>
       );
@@ -270,7 +270,7 @@ class UserProfile extends React.Component {
             }}>Library</a></li>
             <li><a onClick={() => {
               this.handleLocalNav('broadcasts');
-            }}>Broadcasts</a></li>
+            }}>Stations</a></li>
             <li><a onClick={() => {
               this.handleLocalNav('friends');
             }}>Friends</a></li>

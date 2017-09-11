@@ -12,7 +12,7 @@ class Van extends React.Component {
     this.handleChangeSetName = this.handleChangeSetName.bind(this);
     this.handleSpinLive = this.handleSpinLive.bind(this);
 
-    this.props.dispatch(actions.getSessions());
+    // this.props.dispatch(actions.getSessions());
   }
 
   handleChangeSetName(e) {

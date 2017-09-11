@@ -441,7 +441,7 @@ export var startPlayVideoAndCreateStation = (id, url, title) => {
   return (dispatch, getState) => {
     var state = getState();
 
-    var stationName = state.auth.userName + '' + Date.now();
+    var stationName = prompt('what should we name the station?');
 
     dispatch(createSesh(stationName, state.auth.uid, state.auth.userName));
     setTimeout(() => {

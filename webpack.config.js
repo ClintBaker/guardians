@@ -30,11 +30,18 @@ module.exports = {
       applicationStyles: 'app/styles/app.scss',
       configureStore: 'app/store/configureStore',
       actions: 'app/actions/actions',
-      reducers: 'app/reducers/reducers'
+      reducers: 'app/reducers/reducers',
+      applicationStyles: 'app/styles/app.css'
     },
     extensions: ['', '.js', '.jsx']
   },
   module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      }
+    ],
     loaders: [
       {
         loader: 'babel-loader',
