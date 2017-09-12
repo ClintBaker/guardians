@@ -66,7 +66,8 @@ class Home extends React.Component {
 
         <div className="row">
           <br />
-          <p>To report errors, give feedback, or for graphic designers tryna work on the cheap, please contact: clintjbaker@gmail.com</p>
+          <p>Graphic designers tryna work on the cheap, please contact: clintjbaker@gmail.com</p>
+          <p>This app has a lot of bugs.  To report errors please contact: caravanfm@gmail.com</p>
           <br />
           <h4>iOS and Andriod apps coming soon.</h4>
         </div>

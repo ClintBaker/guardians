@@ -80,24 +80,29 @@ class Login extends React.Component {
   render() {
 
     return (
-      <div className="container">
-        <h1>Caravan.fm</h1>
-        <form>
-          <div className="form-group">
-            <input className="form-control" value={this.state.email} placeholder="email" value={this.state.email} onChange={this.handleEmailInput} />
+      <div className="landingBackground">
+        <div className="container landing">
+          <div className="col-sm-12 col-md-offset-2 col-md-8 col-lg-offset-4 col-lg-4">
+            <h1>Caravan.fm</h1>
+            <form className="customForm">
+              <h4>Log in</h4>
+              <div className="form-group">
+                <input className="form-control" value={this.state.email} placeholder="email" value={this.state.email} onChange={this.handleEmailInput} />
+              </div>
+              <div className="form-group">
+                  <input type="password" className="form-control" value={this.state.password} placeholder="password" value={this.state.password}
+                    onChange={this.handlePasswordInput} />
+              </div>
+              <div className="form-group">
+                  <input type="password" className="form-control" value={this.state.passwordConfirm} placeholder="confirm password"
+                    value={this.state.passwordConfirm} onChange={this.handlePasswordConfirmInput} />
+              </div>
+            </form>
+            <button className="btn col-sm-12 col-xs-12 landingBtn" onClick={this.onLogin}>Log in</button>
+            <p className="col-sm-12 col-xs-12 loginText">Need an account?</p>
+            <Link to="signup" className="btn btn-primary col-sm-12 col-xs-12">Sign up</Link>
           </div>
-          <div className="form-group">
-            <input type="password" className="form-control" value={this.state.password} placeholder="password" value={this.state.password}
-              onChange={this.handlePasswordInput} />
-          </div>
-          <div className="form-group">
-            <input type="password" className="form-control" value={this.state.passwordConfirm} placeholder="confirm password"
-              value={this.state.passwordConfirm} onChange={this.handlePasswordConfirmInput} />
-          </div>
-        </form>
-        <button className="btn" onClick={this.onLogin}>Log in</button>
-        <p style={{marginTop: '30px'}}>Need an account?</p>
-        <Link to="signup" className="btn btn-primary">Sign up</Link>
+        </div>
       </div>
     );
   }

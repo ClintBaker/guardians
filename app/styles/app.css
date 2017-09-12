@@ -1,3 +1,32 @@
 a {
   cursor: pointer;
 }
+
+/* Landing Page */
+
+.landing {
+  text-align: center;
+  justify-content: center;
+}
+
+.customForm {
+  margin-top: 50px;
+}
+
+.loginText {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.customForm > h4 {
+  margin-bottom: 14px;
+}
+
+.landingBackground {
+  background-color: black;
+  height: 100vh;
+}
+
+.landingHeader {
+  color: rgba(255, 0, 255, 0.8);
+}

@@ -82,29 +82,44 @@ class Signup extends React.Component {
   render() {
 
     return (
-      <div className="container">
-        <h1>Caravan.fm</h1>
-        <p>Signup page</p>
-        <form>
-          <div className="form-group">
-            <input type="text" className="form-control" value={this.state.userName} placeholder="user name"
-               onChange={this.handleUserNameInput} />
+      <div className="landingBackground">
+        <div className="container landing">
+          <div className="col-sm-12 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+            <h1>Caravan.fm</h1>
+            <form className="form-horizontal customForm">
+              <h4>Sign up</h4>
+              <div className="form-group">
+                <label className="control-label col-sm-2">User Name</label>
+                <div className="col-sm-10">
+                  <input type="text" className="form-control" value={this.state.userName} placeholder="user name" onChange={this.handleUserNameInput} />
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="control-label col-sm-2">Email</label>
+                <div className="col-sm-10">
+                  <input className="form-control" value={this.state.email} placeholder="email" value={this.state.email} onChange={this.handleEmailInput} />
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="control-label col-sm-2">Password</label>
+                <div className="col-sm-10">
+                  <input type="password" className="form-control" value={this.state.password} placeholder="password" value={this.state.password}
+                    onChange={this.handlePasswordInput} />
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="control-label col-sm-2">Confirm Password</label>
+                <div className="col-sm-10">
+                  <input type="password" className="form-control" value={this.state.passwordConfirm} placeholder="confirm password"
+                    value={this.state.passwordConfirm} onChange={this.handlePasswordConfirmInput} />
+                </div>
+              </div>
+            </form>
+            <button className="btn col-sm-offset-2 col-sm-10" onClick={this.onSignup}>Sign up</button>
+            <p className="col-sm-offset-2 col-sm-10 loginText">Already have an account?</p>
+            <Link to="/" className="btn btn-primary col-sm-offset-2 col-sm-10">Log in</Link>
           </div>
-          <div className="form-group">
-            <input className="form-control" value={this.state.email} placeholder="email" value={this.state.email} onChange={this.handleEmailInput} />
-          </div>
-          <div className="form-group">
-            <input type="password" className="form-control" value={this.state.password} placeholder="password" value={this.state.password}
-              onChange={this.handlePasswordInput} />
-          </div>
-          <div className="form-group">
-            <input type="password" className="form-control" value={this.state.passwordConfirm} placeholder="confirm password"
-               onChange={this.handlePasswordConfirmInput} />
-          </div>
-        </form>
-        <button className="btn btn-primary" onClick={this.onSignup}>Signup</button>
-        <p style={{ marginTop: '30px' }}>Already have an account?</p>
-        <button className="btn"><Link to="/">Log in</Link></button>
+        </div>
       </div>
     );
   }
