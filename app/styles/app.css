@@ -122,7 +122,20 @@ body {
   letter-spacing: -1px;
 }
 
+/* Custom Dropdown */
 
+.dropdown {
+    display: inline-block;
+}
+
+.dropdown__content {
+    display: none;
+    position: relative;
+}
+
+.dropdown--active .dropdown__content {
+    display: block;
+}
 
 /*
 Colors:

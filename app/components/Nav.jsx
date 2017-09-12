@@ -3,6 +3,7 @@ import * as Redux from 'redux';
 import * as actions from 'app/actions/actions';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
+import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 
 import Search from 'app/components/Search';
 
@@ -59,9 +60,18 @@ class Nav extends React.Component {
             </ul>
           </div>
           <div className="customNavSmall">
-            <ul className="customNavRight">
-              <li><a className="navbarLink"><span className="fa fa-caret-down"></span></a></li>
-            </ul>
+            <Dropdown>
+              <DropdownTrigger><i className="fa fa-bars"></i></DropdownTrigger>
+              <DropdownContent>
+                <ul className="customNavRight">
+                  <li><a className="navbarLink" onClick={() => this.handleNav('van')}>Stations</a></li>
+                  <li><a className="navbarLink" onClick={() => this.handleNav('browse')}>Videos</a></li>
+                  <li><a className="navbarLink" onClick={() => this.handleNav('users')}>People</a></li>
+                  <li><a className="navbarLink" onClick={() => this.handleNav('myLibrary')}>My Library</a></li>
+                  <li><a className="navbarLink" onClick={this.handleLogout}>Logout</a></li>
+                </ul>
+              </DropdownContent>
+            </Dropdown>
           </div>
         </div>
       </nav>
