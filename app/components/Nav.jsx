@@ -40,32 +40,31 @@ class Nav extends React.Component {
 
   render() {
     return (
-      <nav className="navbar navbar-default navbar-fixed-top ">
-  <div className="container-fluid">
-    <div className="navbar-header">
-      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span className="sr-only">Toggle navigation</span>
-        <span className="icon-bar"></span>
-        <span className="icon-bar"></span>
-        <span className="icon-bar"></span>
-      </button>
-      <a style={{cursor: 'pointer'}} className="navbar-brand" onClick={() => this.handleNav('home')}>Caravan.fm</a>
-    </div>
-    <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul className="nav navbar-nav">
-        <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('van')}>Stations</a></li>
-        <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('browse')}>Videos</a></li>
-        <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('users')}>People</a></li>
-      </ul>
-        <Search />
-      <ul className="nav navbar-nav navbar-right">
-        {this.renderRoom()}
-        <li><a style={{cursor: 'pointer'}} onClick={() => this.handleNav('myLibrary')}>My Library</a></li>
-        <li><a style={{cursor: 'pointer'}} onClick={this.handleLogout}>Logout</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+      <nav className="navbar navbar-fixed-top ">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <a className="navbar-brand navbarLink" onClick={() => this.handleNav('home')}>Caravan.fm</a>
+          </div>
+          <div className="customNav">
+            <ul className="nav navbar-nav">
+              <li><a className="navbarLink" onClick={() => this.handleNav('van')}>Stations</a></li>
+              <li><a className="navbarLink" onClick={() => this.handleNav('browse')}>Videos</a></li>
+              <li><a className="navbarLink" onClick={() => this.handleNav('users')}>People</a></li>
+            </ul>
+              <Search />
+            <ul className="nav navbar-nav navbar-right">
+              {this.renderRoom()}
+              <li><a className="navbarLink" onClick={() => this.handleNav('myLibrary')}>My Library</a></li>
+              <li><a className="navbarLink" onClick={this.handleLogout}>Logout</a></li>
+            </ul>
+          </div>
+          <div className="customNavSmall">
+            <ul className="customNavRight">
+              <li><a className="navbarLink"><span className="fa fa-caret-down"></span></a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     );
   }
 }

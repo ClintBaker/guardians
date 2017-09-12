@@ -2,11 +2,20 @@ a {
   cursor: pointer;
 }
 
+body {
+  background-color: #080808;
+}
+
 /* Landing Page */
 
 .landing {
   text-align: center;
   justify-content: center;
+  color: #808080;
+}
+
+.landingBtn {
+  color: #292b2c;
 }
 
 .customForm {
@@ -23,10 +32,105 @@ a {
 }
 
 .landingBackground {
-  background-color: black;
   height: 100vh;
 }
 
 .landingHeader {
   color: rgba(255, 0, 255, 0.8);
 }
+
+/* Main */
+
+.main {
+  color: #808080;
+}
+
+/* Footer */
+
+.main > footer {
+  color: #101010;
+  background-color: #337ab7;
+  height: 150px;
+}
+
+/* Nav */
+
+.navbar {
+  background-color: #080808;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #337ab7;
+}
+
+.navbarLink {
+  cursor: pointer;
+}
+
+.customNav > .nav > li > a:hover {
+  background-color: #080808;
+  color: none;
+}
+
+.blackAndBlueForm {
+  background-color: #080808;
+}
+
+.blackAndBlueForm > .form-group > input {
+  background-color: #080808;
+  border-color: #337ab7;
+}
+
+.blackAndBlueForm > .form-group > button {
+  background-color: #337ab7;
+  border-color: #337ab7;
+  color: #080808;
+}
+
+.blackAndBlueForm > .form-group > input::placeholder {
+  color: #337ab7;
+}
+
+.customNavRight {
+  list-style: none;
+}
+
+@media only screen and (max-width: 770px) {
+    .customNav {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 771px) {
+    .customNavSmall {
+        display: none;
+    }
+}
+
+/* Home */
+
+.home {
+  text-align: center;
+}
+
+.home > div > h2 {
+  padding-top: 100px;
+  color: #337ab7;
+}
+
+.title {
+  color: #337ab7;
+  letter-spacing: -1px;
+}
+
+
+
+/*
+Colors:
+
+Blue: #337ab7;
+Dark Grey: #080808;
+Mid Grey: #101010;
+Light Grey: #808080;
+Purple: rgba(255,0,255,1);
+
+*/

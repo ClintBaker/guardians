@@ -95,7 +95,7 @@ class OGStudio extends React.Component {
   render() {
 
     return (
-      <div>
+      <div className="main">
         <div>
           {this.renderLazer()}
         </div>
@@ -107,7 +107,7 @@ class OGStudio extends React.Component {
           </div>
           {this.renderMain()}
         </div>
-        <footer style={{height: '400px', backgroundColor: '#f8f8f8', marginTop: '100px'}}>
+        <footer>
           <h3 align="center" style={{textAlign: 'center', paddingTop: '35px'}}>Caravan.fm</h3>
           <h5 align="center" style={{textAlign: 'center'}}>Powered by YouTube</h5>
           {/* <p><a href="http://www.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1189772.htm">Images Designed by Freepik</a></p> */}

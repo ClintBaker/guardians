@@ -28,9 +28,9 @@ class Home extends React.Component {
   render() {
 
     return (
-      <div style={{textAlign: 'center'}}>
-        <div style={{backgroundColor: '#eaeaea', backgroundSize: 'cover', width: 'auto'}}>
-          <h2 style={{paddingTop: '100px'}}><span style={{color: 'rgba(255, 0, 255, 1)'}}>Caravan.fm</span></h2>
+      <div className="home">
+        <div>
+          <h2><span className="title">Caravan.fm</span></h2>
           <h4>Stream music and videos together.</h4>
 
           <div className="row">
