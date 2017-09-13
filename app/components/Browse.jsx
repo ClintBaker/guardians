@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 
 import Library from 'app/components/Library';
-import Nav from 'app/components/Nav';
 
 class Browse extends React.Component {
   constructor(props) {
@@ -122,7 +121,6 @@ class Browse extends React.Component {
 
     return (
       <div>
-        <Nav />
         <div className="container-fluid">
 
           <h1>Browse</h1>
