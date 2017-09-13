@@ -39,13 +39,13 @@ class Home extends React.Component {
             <div className="col-xs-12 col-md-6 col-lg-5 col-lg-offset-1">
               <h4><a onClick={() => {
                 this.handleNav('van');
-              }}>Explore</a></h4>
-              <p>Hop along for the ride while someone else picks the tracks.  Sit back and find new music.</p>
+              }}>Caravan</a></h4>
+              <p>Hop along for the ride while someone else picks the tracks.  Join the caravan, sit back, and find new music.</p>
             </div>
             <div className="col-xs-12 col-md-6 col-lg-5">
               <h4><a onClick={() => {
                 this.handleNav('browse');
-              }}>Browse</a></h4>
+              }}>Explore</a></h4>
               <p>Search the entire YouTube catalog right here.  Stream any song or video, anytime.</p>
             </div>
           </div>
