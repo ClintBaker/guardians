@@ -29,46 +29,47 @@ class Home extends React.Component {
 
     return (
       <div className="home">
-        <div>
+        <div className="homeLanding">
           <h2><span className="title">Caravan.fm</span></h2>
           <h4>Stream music and videos together.</h4>
-
+        </div>
+        <div className="homeInfo col-md-6 col-xs-12">
+          <h3 className="title2">Get Started</h3>
           <div className="row">
-            <div className="col-sm-12 col-lg-offset-4 col-lg-4">
+            <div className="col-xs-12 col-md-6 col-lg-5 col-lg-offset-1">
               <h4><a onClick={() => {
                 this.handleNav('van');
               }}>Stations</a></h4>
               <p>Browse current stations.  Hop along for the ride while someone else picks the songs / videos.</p>
             </div>
-            <div className="col-sm-12 col-lg-offset-4 col-lg-4">
+            <div className="col-xs-12 col-md-6 col-lg-5">
               <h4><a onClick={() => {
                 this.handleNav('browse');
               }}>Videos</a></h4>
               <p>Browse videos and music.  Search the entire YouTube catalog right here.  Stream any song, anytime, and create a station so your friends can listen too.</p>
             </div>
           </div>
-          <div className="row" style={{paddingBottom: '100px'}}>
-            <div className="col-sm-12 col-lg-offset-4 col-lg-4">
+          <div className="row">
+          <div className="col-xs-12 col-md-6 col-lg-5 col-lg-offset-1">
+            <h4><a onClick={() => {
+              this.handleNav('myLibrary');
+            }}>My Library</a></h4>
+            <p>Save music / videos to MyLibrary simply by clicking the <span className="fa fa-plus"></span> icon next to any video,
+            and always be able to access your favorite content.</p>
+          </div>
+            <div className="col-xs-12 col-md-6 col-lg-5">
               <h4><a onClick={() => {
                 this.handleNav('users');
               }}>People</a></h4>
               <p>Find your friends and add them so you have people to share music / videos with.</p>
             </div>
-            <div className="col-sm-12 col-lg-offset-4 col-lg-4">
-              <h4><a onClick={() => {
-                this.handleNav('myLibrary');
-              }}>My Library</a></h4>
-              <p>Save music / videos to MyLibrary simply by clicking the <span className="fa fa-plus"></span> icon next to any video,
-              and always be able to access your favorite content.</p>
-            </div>
           </div>
         </div>
 
-        <div className="row">
-          <br />
-          <p>Graphic designers tryna work on the cheap, please contact: clintjbaker@gmail.com</p>
-          <p>This app has a lot of bugs.  To report errors please contact: caravanfm@gmail.com</p>
-          <br />
+        <div className="col-md-6 col-xs-12 homeImageContainer">
+          <img className="homeImage" src="assets/images/background2.jpeg" />
+        </div>
+        <div className="row col-xs-12">
           <h4>iOS and Andriod apps coming soon.</h4>
         </div>
       </div>

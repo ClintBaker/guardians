@@ -124,13 +124,43 @@ body {
 }
 
 .home > div > h2 {
-  padding-top: 100px;
   color: #337ab7;
 }
 
 .title {
   color: #337ab7;
   letter-spacing: -1px;
+}
+
+.title2 {
+  color: #337ab7;
+  margin-bottom: 55px;
+}
+
+.homeLanding {
+  margin-top: 150px;
+  margin-bottom: 150px;
+}
+
+.homeInfo {
+  background-color: #101010;
+  height: 430px;
+  padding-top: 10px;
+}
+
+.homeImageContainer {
+  height: 430px;
+}
+
+@media only screen and (max-width: 513px) {
+  .homeInfo {
+    height: auto;
+  }
+}
+
+.homeImage {
+  width: 100%;
+  height: 100%;
 }
 
 /*
