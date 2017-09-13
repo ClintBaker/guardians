@@ -69,7 +69,7 @@ class Nav extends React.Component {
             </ul>
               <Search />
             <ul className="nav navbar-nav navbar-right">
-              {this.renderRoom()}
+              {/* {this.renderRoom()} */}
               <li><a className="navbarLink" onClick={() => this.handleNav('myLibrary')}>My Library</a></li>
               <li><a className="navbarLink" onClick={this.handleLogout}>Logout</a></li>
             </ul>
