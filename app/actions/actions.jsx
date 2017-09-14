@@ -35,7 +35,7 @@ export var createUser = (password, email, userName) => {
 
       firebaseRef.child(`userReference/emails`).push(email);
       firebaseRef.child(`userReference/userNames`).push(userName);
-      dispatch(login(user.uid));
+      dispatch(login(user.uid, email, userName));
       hashHistory.push('van');
     }).catch((e) => {
       console.log(e);
@@ -57,7 +57,7 @@ export var login = (uid, email, userName) => {
 export var startLogin = (email, password) => {
   return (dispatch, getState) => {
     firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
-      dispatch(login(user.uid));
+      dispatch(login(user.uid, email, user.userName));
       hashHistory.push('van');
     }).catch((e) => {
       console.log(e);

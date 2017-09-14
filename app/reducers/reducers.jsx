@@ -3,7 +3,9 @@ export var authReducer = (state = { myLibrary: [] }, action) => {
     case 'LOGIN':
       return {
         ...state,
-        uid: action.uid
+        uid: action.uid,
+        email: action.email,
+        userName: action.userName
       };
     case 'AFTER_LOGIN':
       return {

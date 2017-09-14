@@ -115,7 +115,7 @@ class Signup extends React.Component {
                 </div>
               </div>
             </form>
-            <button className="btn col-sm-offset-2 col-sm-10" onClick={this.onSignup}>Sign up</button>
+            <button className="btn col-sm-offset-2 col-sm-10 landingBtn" onClick={this.onSignup}>Sign up</button>
             <p className="col-sm-offset-2 col-sm-10 loginText">Already have an account?</p>
             <Link to="/" className="btn btn-primary col-sm-offset-2 col-sm-10">Log in</Link>
           </div>
