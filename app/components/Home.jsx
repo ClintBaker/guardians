@@ -59,7 +59,7 @@ class Home extends React.Component {
             <div className="col-xs-12 col-md-6 col-lg-5">
               <h4><a onClick={() => {
                 this.handleNav('users');
-              }}>People</a></h4>
+              }}>Connect</a></h4>
               <p>Find your friends / anyone with good taste in music.</p>
             </div>
           </div>

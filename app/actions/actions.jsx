@@ -130,9 +130,12 @@ export var updateSeshCount = (seshId, userId) => {
 
 export var isLive = (id, oldRoom) => {
   return (dispatch, getState) => {
-    var state = getState();
-    var uid = state.auth.uid;
-    firebaseRef.child(`sessions/${oldRoom}`).update({ isLive: false });
+
+    if (oldRoom != null) {
+      var state = getState();
+      var uid = state.auth.uid;
+      firebaseRef.child(`sessions/${oldRoom}`).update({ isLive: false });  
+    }
     firebaseRef.child(`sessions/${id}`).update({ isLive: true });
   };
 };
@@ -217,13 +220,14 @@ export var createSesh = (seshName, uid, userName) => {
         }
       ]
     }).then(() => {
-      firebaseRef.child(`users/${uid}/sessions/${seshName}`).set({ id: seshName });
       dispatch(updateSession(newSeshName, seshName, userName));
       dispatch(updateNav('studio'));
       dispatch(joinSesh(newSeshName));
     }).catch((e) => {
       console.log('unable to create sesh');
     });
+
+    firebaseRef.child(`users/${uid}/sessions/${seshName}`).set({ id: seshName });
   };
 };
 

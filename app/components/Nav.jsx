@@ -65,7 +65,7 @@ class Nav extends React.Component {
             <ul className="nav navbar-nav">
               <li><a className="navbarLink" onClick={() => this.handleNav('van')}>Stations</a></li>
               <li><a className="navbarLink" onClick={() => this.handleNav('browse')}>Browse</a></li>
-              <li><a className="navbarLink" onClick={() => this.handleNav('users')}>People</a></li>
+              <li><a className="navbarLink" onClick={() => this.handleNav('users')}>Connect</a></li>
             </ul>
               <Search />
             <ul className="nav navbar-nav navbar-right">
