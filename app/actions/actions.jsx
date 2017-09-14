@@ -126,10 +126,23 @@ export var updateSeshCount = (seshId, userId) => {
   };
 };
 
+// isLive *****
+
+export var isLive = (id, oldRoom) => {
+  return (dispatch, getState) => {
+    var state = getState();
+    var uid = state.auth.uid;
+    firebaseRef.child(`sessions/${oldRoom}`).update({ isLive: false });
+    firebaseRef.child(`sessions/${id}`).update({ isLive: true });
+  };
+};
+
 // Join sesh *****
 
 export var joinSesh = (seshId) => {
   return (dispatch, getState) => {
+    var state = getState();
+    var oldRoom = state.room.id;
       dispatch(startLeaveSession());
 
       var letters = '0123456789ABCDEF';
@@ -148,6 +161,7 @@ export var joinSesh = (seshId) => {
         var state = getState();
         if (state.auth.uid === snap.chief) {
           dispatch(setChiefStatus(true));
+          dispatch(isLive(seshId, oldRoom));
         } else {
           dispatch(setChiefStatus(false));
         }
@@ -194,6 +208,7 @@ export var createSesh = (seshName, uid, userName) => {
       chief: uid,
       chiefName: userName,
       name: seshName,
+      isLive: true,
       messages: [
         {
           user: 'admin',
@@ -202,6 +217,7 @@ export var createSesh = (seshName, uid, userName) => {
         }
       ]
     }).then(() => {
+      firebaseRef.child(`users/${uid}/sessions/${seshName}`).set({ id: seshName });
       dispatch(updateSession(newSeshName, seshName, userName));
       dispatch(updateNav('studio'));
       dispatch(joinSesh(newSeshName));
